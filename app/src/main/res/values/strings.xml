@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CebancPizza</string>
+    <string name="nombre">Nombre</string>
+    <string name="direccion">Dirrección</string>
+    <string name="telefono">Tlf</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="salir">Salir</string>
+</resources>
