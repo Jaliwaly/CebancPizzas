@@ -5,10 +5,8 @@ package com.aitor.cebancpizza;
  */
 
 public class InformacionCliente {
-    String nombre, direccion, identificador;
+    String nombre, direccion;
     int telefono;
-    Object obj;
-
 
 
     public void setNombre(String n){

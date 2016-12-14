@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,8 +19,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
     Button sig = null;
     Button salir = null;
     InformacionCliente inf = new InformacionCliente();
-    ArrayList infos;
-    String i;
+    ArrayList<EstructuraArray> datos = new ArrayList<EstructuraArray>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,37 +30,16 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         tlf = (EditText) findViewById(R.id.tlf);
         sig = (Button) findViewById(R.id.siguientePantalla1);
         salir = (Button) findViewById(R.id.salirPantalla1);
-        sig.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ValidarDatos() == true){
-                    inf.setNombre(nom.getText().toString());
-                    inf.setDireccion(dir.getText().toString());
-                    inf.setTelefono(Integer.parseInt(tlf.getText().toString()));
-                    ArrayInfo x = new ArrayInfo("Datos",inf);
-                    infos.add(x);
-                    //siguienteP1();
-                    i = x.getIdentificador();
-                    switch(i){
-                        case "Datos":
-                            for(int k=0; k<infos.size();k++){
-                                Toast ts = Toast.makeText(getApplicationContext(),"pene",Toast.LENGTH_LONG);
-                                ts.show();
-                            }
-                            break;
-                    }
-                }else{
-                    Toast ts = Toast.makeText(getApplicationContext(),"Debe rellenar todos los campos",Toast.LENGTH_LONG);
-                    ts.show();
-                }
-            }
-        });
+        inf.setNombre(nom.getText().toString());
+        inf.setDireccion(dir.getText().toString());
+        inf.setTelefono(Integer.parseInt(tlf.getText().toString()));
+        EstructuraArray cliente = new EstructuraArray("Datos",inf);
+        datos.add(cliente);
+
     }
     public void siguienteP1(){
         Intent i = new Intent(this,CebancPizza_Carta.class);
-        i.putExtra("Nombre",nom.getText().toString());
-        i.putExtra("Direccion",dir.getText().toString());
-        i.putExtra("Telefono",tlf.getText().toString());
+        i.putExtra("Cliente",datos);
         startActivity(i);
     }
     private boolean ValidarDatos(){
