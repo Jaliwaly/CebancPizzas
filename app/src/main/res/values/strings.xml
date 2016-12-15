@@ -5,4 +5,17 @@
     <string name="telefono">Tlf</string>
     <string name="siguiente">Siguiente</string>
     <string name="salir">Salir</string>
+    <string name="mas">+</string>
+    <string name="menos">-</string>
+    <string name="seleccioneCantidad">Seleccione la cantidad del producto indicado:</string>
+    <string name="anadir">Añadir</string>
+    <string-array name="tipoMasa">
+        <item>Masa Fina</item>
+        <item>Masa Normal</item>
+    </string-array>
+    <string-array name="tamano">
+        <item>Individual</item>
+        <item>Mediana</item>
+        <item>Familiar</item>
+    </string-array>
 </resources>

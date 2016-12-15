@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="@string/seleccioneCantidad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_weight="0.06" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.06">
+
+            <Button
+                android:layout_marginLeft="50dp"
+                android:text="@string/menos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btnMenos" />
+
+            <EditText
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:id="@+id/txtCantidad"
+                android:background="@android:color/white"
+                android:textAlignment="center"/>
+
+            <Button
+                android:layout_marginRight="50dp"
+                android:text="@string/mas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/btnMas" />
+
+        </TableRow>
+    </TableLayout>
+
+    <Spinner
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/spnMasa" />
+
+    <Spinner
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/spnTamano" />
+
+    <Button
+        android:text="@string/anadir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAnadir"
+        android:layout_marginTop="5dp"/>
+</LinearLayout>
