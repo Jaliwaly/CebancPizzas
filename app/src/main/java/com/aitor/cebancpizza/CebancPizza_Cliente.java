@@ -19,7 +19,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
     Button sig = null;
     Button salir = null;
     InformacionCliente inf = new InformacionCliente();
-    ArrayList<EstructuraArray> datos = new ArrayList<EstructuraArray>();
+    ArrayList<EstructuraArray> datos = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +30,24 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         tlf = (EditText) findViewById(R.id.tlf);
         sig = (Button) findViewById(R.id.siguientePantalla1);
         salir = (Button) findViewById(R.id.salirPantalla1);
+        sig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(ValidarDatos() == true){
+                    siguienteP1();
+                }else{
+                    Toast ts = Toast.makeText(getApplicationContext(),"XD",Toast.LENGTH_LONG);
+                    ts.show();
+                }
+            }
+        });
+    }
+    public void siguienteP1(){
         inf.setNombre(nom.getText().toString());
         inf.setDireccion(dir.getText().toString());
         inf.setTelefono(Integer.parseInt(tlf.getText().toString()));
         EstructuraArray cliente = new EstructuraArray("Datos",inf);
         datos.add(cliente);
-
-    }
-    public void siguienteP1(){
         Intent i = new Intent(this,CebancPizza_Carta.class);
         i.putExtra("Cliente",datos);
         startActivity(i);

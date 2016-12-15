@@ -1,10 +1,12 @@
 package com.aitor.cebancpizza;
 
+import java.io.Serializable;
+
 /**
  * Created by adminportatil on 09/12/2016.
  */
 
-public class InformacionCliente {
+public class InformacionCliente implements Serializable{
     String nombre, direccion;
     int telefono;
 
@@ -18,4 +20,14 @@ public class InformacionCliente {
     public void setTelefono(int tlf){
         telefono = tlf;
     }
+    public String getNombre(){
+        return nombre;
+    }
+    public String getDireccion(){
+        return direccion;
+    }
+    public int getTelefono(){
+        return telefono;
+    }
+
 }
