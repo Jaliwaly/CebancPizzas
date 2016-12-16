@@ -18,8 +18,8 @@ public class CebancPizza_Cliente extends AppCompatActivity {
     EditText tlf = null;
     Button sig = null;
     Button salir = null;
-    InformacionCliente inf = new InformacionCliente();
-    ArrayList<EstructuraArray> datos = new ArrayList();
+    InformacionCliente inf;
+    ArrayList<EstructuraArray> datos = new ArrayList<EstructuraArray>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,20 +36,22 @@ public class CebancPizza_Cliente extends AppCompatActivity {
                 if(ValidarDatos() == true){
                     siguienteP1();
                 }else{
-                    Toast ts = Toast.makeText(getApplicationContext(),"XD",Toast.LENGTH_LONG);
+                    Toast ts = Toast.makeText(getApplicationContext(),"Introduce todos los campos",Toast.LENGTH_LONG);
                     ts.show();
                 }
             }
         });
     }
     public void siguienteP1(){
+        inf = new InformacionCliente();
         inf.setNombre(nom.getText().toString());
         inf.setDireccion(dir.getText().toString());
         inf.setTelefono(Integer.parseInt(tlf.getText().toString()));
         EstructuraArray cliente = new EstructuraArray("Datos",inf);
         datos.add(cliente);
+
         Intent i = new Intent(this,CebancPizza_Carta.class);
-        i.putExtra("Cliente",datos);
+        i.putExtra("datos",datos);
         startActivity(i);
     }
     private boolean ValidarDatos(){
