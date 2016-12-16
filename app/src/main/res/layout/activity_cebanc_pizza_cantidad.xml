@@ -35,7 +35,8 @@
                 android:text="@string/menos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/btnMenos" />
+                android:id="@+id/btnMenos"
+                android:onClick="restar" />
 
             <EditText
                 android:layout_marginLeft="5dp"
@@ -54,7 +55,8 @@
                 android:text="@string/mas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/btnMas" />
+                android:id="@+id/btnMas"
+                android:onClick="sumar" />
 
         </TableRow>
     </TableLayout>
@@ -78,6 +80,16 @@
         android:id="@+id/spnTamano"
         android:background="@android:color/white"
         android:layout_weight="0.09" />
+
+    <TextView
+        android:text="@string/pvp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblTotal"
+        android:layout_weight="0.06"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:textSize="25dp"/>
 
     <Button
         android:text="@string/anadir"

@@ -9,6 +9,7 @@
     <string name="menos">-</string>
     <string name="seleccioneCantidad">Seleccione la cantidad del producto indicado:</string>
     <string name="anadir">Añadir</string>
+    <string name="pvp">Total:</string>
     <string-array name="tipoMasa">
         <item>Masa Fina</item>
         <item>Masa Normal</item>
