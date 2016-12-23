@@ -35,8 +35,7 @@
                 android:text="@string/menos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/btnMenos"
-                android:onClick="restar" />
+                android:id="@+id/btnMenos" />
 
             <EditText
                 android:layout_marginLeft="5dp"
@@ -48,15 +47,15 @@
                 android:inputType="number"
                 android:id="@+id/txtCantidad"
                 android:background="@android:color/white"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:clickable="false" />
 
             <Button
                 android:layout_marginRight="25dp"
                 android:text="@string/mas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/btnMas"
-                android:onClick="sumar" />
+                android:id="@+id/btnMas" />
 
         </TableRow>
     </TableLayout>
