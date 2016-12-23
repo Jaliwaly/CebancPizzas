@@ -2,7 +2,6 @@ package com.aitor.cebancpizza;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         Bundle extras = getIntent().getExtras();
         datosPizza = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
         client = (InformacionCliente) datosPizza.get(0).getObj();
-        texto = "Hola"+client.getNombre();
+        texto = "Escoja su pizza, "+client.getNombre();
         textopru.setText(texto);
     }
 }
