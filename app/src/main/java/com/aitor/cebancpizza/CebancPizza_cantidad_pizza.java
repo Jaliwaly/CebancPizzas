@@ -21,7 +21,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private int cantidad=1;
     private TextView total;
     private EditText cant;
-    private Button mas, menos;
+    private Button mas, menos, anadir;
     int prMasa,prTipo;
 
     @Override
@@ -34,6 +34,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         total.setText(total.getText() + " " + cantidad);
         mas=(Button) findViewById(R.id.btnMas);
         menos=(Button) findViewById(R.id.btnMenos);
+
+
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +101,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
 
             }
         });
+        anadir = (Button) findViewById(R.id.btnAnadir);
+        //falta meter el boton de añadir
     }
 
     private void mensajeError(){
