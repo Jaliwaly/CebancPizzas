@@ -55,7 +55,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.14" />
+                    android:layout_weight="0.14"
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </LinearLayout>
 
             <ImageView
@@ -76,7 +78,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.14" />
+                    android:layout_weight="0.14"
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </LinearLayout>
 
             <ImageView
@@ -97,7 +101,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.14" />
+                    android:layout_weight="0.14"
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </LinearLayout>
 
             <ImageView
@@ -118,7 +124,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.14" />
+                    android:layout_weight="0.14"
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </LinearLayout>
 
             <ImageView
@@ -138,7 +146,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.14" />
+                    android:layout_weight="0.14"
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </LinearLayout>
 
             <ImageView
@@ -158,7 +168,9 @@
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.14" />
+                    android:layout_weight="0.14"
+                    android:inputType="number"
+                    android:maxLength="2"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
