@@ -70,13 +70,13 @@ public class CebancPizza_Carta extends AppCompatActivity{
     public void anadir(String tipo){
 
         Intent i = new Intent(this,CebancPizza_cantidad_pizza.class);
-        i.putExtra("pizza",pizza);
+        i.putParcelableArrayListExtra("pizza", pizza);
         i.putExtra("tipo",tipo);
         startActivityForResult(i,1234);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==1234 && resultCode==RESULT_OK) {
-            pizza=(ArrayList<InformacionPizza>)data.getExtras().getSerializable("pizza");
+            pizza=data.getExtras().getParcelableArrayList("pizza");
         }
     }
 }

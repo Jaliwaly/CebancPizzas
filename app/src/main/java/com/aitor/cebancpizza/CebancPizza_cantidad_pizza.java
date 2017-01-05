@@ -1,5 +1,6 @@
 package com.aitor.cebancpizza;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * Created by ingae on 14/12/2016.
@@ -22,6 +25,10 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private TextView total;
     private EditText cant;
     private Button mas, menos, anadir;
+    private String nomMasa, nomTamano;
+    InformacionPizza pizza;
+    ArrayList<InformacionPizza> pizzas = new ArrayList();
+    Bundle extras;
     int prMasa,prTipo;
 
     @Override
@@ -34,7 +41,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         total.setText(total.getText() + " " + cantidad);
         mas=(Button) findViewById(R.id.btnMas);
         menos=(Button) findViewById(R.id.btnMenos);
-
+        extras = getIntent().getExtras();
+        pizzas = extras.getParcelableArrayList("pizza");
 
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +72,11 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
                 switch (position){
                     case 0:
+                        nomMasa="Masa Fina";
                         prMasa=3;
                         break;
                     case 1:
+                        nomMasa="Masa Normal";
                         prMasa=2;
                         break;
                 }
@@ -85,12 +95,15 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
                 switch (position) {
                     case 0:
+                        nomTamano="Individual";
                         prTipo=1;
                         break;
                     case 1:
+                        nomTamano="Mediana";
                         prTipo=2;
                         break;
                     case 2:
+                        nomTamano="Familiar";
                         prTipo=3;
                         break;
                 }
@@ -102,7 +115,22 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             }
         });
         anadir = (Button) findViewById(R.id.btnAnadir);
-        //falta meter el boton de añadir
+        anadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pizza.setTipo(extras.getString("tipo"));
+                pizza.setCantidad(cantidad);
+                pizza.setMasa(nomMasa);
+                pizza.setTamano(nomTamano);
+                pizza.setTotal(calculaTotal());
+                pizzas.add(pizza);
+                Intent intent = new Intent();
+                intent.putParcelableArrayListExtra("pizza",pizzas);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+
     }
 
     private void mensajeError(){

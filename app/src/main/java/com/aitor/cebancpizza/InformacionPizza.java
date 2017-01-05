@@ -1,10 +1,12 @@
 package com.aitor.cebancpizza;
 
+import android.os.Parcelable;
+
 /**
  * Created by ingae on 05/01/2017.
  */
 
-public class InformacionPizza {
+public abstract class InformacionPizza implements Parcelable {
     String tipo, masa, tamano;
     int cantidad;
     float total;
