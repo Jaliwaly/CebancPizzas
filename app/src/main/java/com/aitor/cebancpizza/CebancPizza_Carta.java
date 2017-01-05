@@ -17,7 +17,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
     TextView textopru;
     String texto;
     InformacionCliente client;
-    Button carbonara, barbacoa, quesos, vegetal, tropical;
+    Button carbonara, barbacoa, quesos, vegetal, tropical, nextBebidas;
     ArrayList<EstructuraArray> datosPizza = new ArrayList();
     ArrayList<InformacionPizza> pizza = new ArrayList();
 
@@ -36,6 +36,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         quesos = (Button) findViewById(R.id.btnQuesos);
         vegetal = (Button) findViewById(R.id.btnVegetal);
         tropical = (Button) findViewById(R.id.btnTropical);
+        nextBebidas = (Button) findViewById(R.id.sigBebidas);
         carbonara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +67,12 @@ public class CebancPizza_Carta extends AppCompatActivity{
                 anadir("Tropical");
             }
         });
+        nextBebidas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                siguienteBebidas();
+            }
+        });
     }
     public void anadir(String tipo){
 
@@ -73,6 +80,11 @@ public class CebancPizza_Carta extends AppCompatActivity{
         i.putParcelableArrayListExtra("pizza", pizza);
         i.putExtra("tipo",tipo);
         startActivityForResult(i,1234);
+    }
+
+    public void siguienteBebidas(){
+        Intent i = new Intent(this,CebancPizza_bebidas.class);
+        startActivity(i);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==1234 && resultCode==RESULT_OK) {
