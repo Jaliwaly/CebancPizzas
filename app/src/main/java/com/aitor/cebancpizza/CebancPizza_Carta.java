@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 
 /**
@@ -81,9 +80,9 @@ public class CebancPizza_Carta extends AppCompatActivity{
         i.putExtra("tipo",tipo);
         startActivityForResult(i,1234);
     }
-
     public void siguienteBebidas(){
         Intent i = new Intent(this,CebancPizza_bebidas.class);
+
         startActivity(i);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {

@@ -12,7 +12,9 @@ public class InformacionPizza implements Parcelable{
     int cantidad;
     float total;
 
-    InformacionPizza(){}
+    InformacionPizza(String tipo){
+        this.tipo=tipo;
+    }
 
     protected InformacionPizza(Parcel in) {
         tipo = in.readString();
@@ -48,7 +50,6 @@ public class InformacionPizza implements Parcelable{
         }
     };
 
-    public void setTipo(String tipo){this.tipo=tipo;}
     public void setMasa(String masa){this.masa=masa;}
     public void setTamano(String tamano){this.tamano=tamano;}
     public void setCantidad(int cantidad){this.cantidad=cantidad;}

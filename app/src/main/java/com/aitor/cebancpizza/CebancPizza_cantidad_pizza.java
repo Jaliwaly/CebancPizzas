@@ -25,9 +25,9 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private int cantidad=1;
     private TextView total;
     private EditText cant;
-    private Button mas, menos, anadir;
+    private Button mas, menos, anadir, cancelar;
     private String nomMasa, nomTamano;
-    InformacionPizza pizza = new InformacionPizza();
+    InformacionPizza pizza;
     ArrayList<InformacionPizza> pizzas;
     Bundle extras;
     int prMasa,prTipo;
@@ -43,7 +43,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         mas=(Button) findViewById(R.id.btnMas);
         menos=(Button) findViewById(R.id.btnMenos);
         extras = getIntent().getExtras();
-        pizza.setTipo(extras.getString("tipo"));
+        pizza = new InformacionPizza(extras.getString("tipo"));
         pizzas = extras.getParcelableArrayList("pizza");
 
         mas.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +131,14 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 finish();
             }
         });
-
+        cancelar=(Button) findViewById(R.id.btnCancelar);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        });
     }
 
     private void mensajeError(){
