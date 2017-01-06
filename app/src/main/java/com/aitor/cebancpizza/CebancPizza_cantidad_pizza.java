@@ -27,7 +27,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private EditText cant;
     private Button mas, menos, anadir, cancelar;
     private String nomMasa, nomTamano;
-    InformacionPizza pizza;
+    InformacionPizza pizza = new InformacionPizza();
     ArrayList<InformacionPizza> pizzas;
     Bundle extras;
     int prMasa,prTipo;
@@ -43,8 +43,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         mas=(Button) findViewById(R.id.btnMas);
         menos=(Button) findViewById(R.id.btnMenos);
         extras = getIntent().getExtras();
-        pizza = new InformacionPizza(extras.getString("tipo"));
-        pizzas = extras.getParcelableArrayList("pizza");
+        pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
 
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +122,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 pizza.setCantidad(cantidad);
                 pizza.setMasa(nomMasa);
                 pizza.setTamano(nomTamano);
+                pizza.setTipo(extras.getString("tipo"));
                 pizza.setTotal(calculaTotal());
                 pizzas.add(pizza);
                 Intent intent = new Intent();

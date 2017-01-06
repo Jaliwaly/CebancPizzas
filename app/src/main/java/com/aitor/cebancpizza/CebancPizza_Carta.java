@@ -82,12 +82,14 @@ public class CebancPizza_Carta extends AppCompatActivity{
     }
     public void siguienteBebidas(){
         Intent i = new Intent(this,CebancPizza_bebidas.class);
-
+        EstructuraArray pizzas = new EstructuraArray("Pizzas",pizza);
+        datosPizza.add(pizzas);
+        i.putExtra("datos",datosPizza);
         startActivity(i);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==1234 && resultCode==RESULT_OK) {
-            pizza= data.getExtras().getParcelableArrayList("pizza");
+            pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
         }
     }
 }
