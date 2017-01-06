@@ -11,6 +11,8 @@
     <string name="anadir">Añadir</string>
     <string name="pvp">Total:</string>
     <string name="cancelar">Cancelar</string>
+    <string name="resumen">Resumen del pedido:</string>
+    <string name="aceptar">Aceptar</string>
     <string-array name="tipoMasa">
         <item>Masa Fina</item>
         <item>Masa Normal</item>

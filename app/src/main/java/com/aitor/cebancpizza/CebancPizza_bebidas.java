@@ -22,7 +22,6 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     private Bundle extras;
     private ArrayList<EstructuraArray> datos;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,11 +180,10 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
     }
     public void finalizarCompra(){
-        //Falta poner el .class correcto. Añadir cuando se haga
-        //Intent i = new Intent(this,CebancPizza_cantidad_pizza.class);
+        Intent i = new Intent(this,CebancPizza_pedido.class);
         EstructuraArray datosBebidas = new EstructuraArray("Bebidas",bebidas);
         datos.add(datosBebidas);
-        //i.putExtra("datos",datos);
-        //startActivity(i);
+        i.putExtra("datos",datos);
+        startActivity(i);
     }
 }

@@ -41,6 +41,12 @@ public class CebancPizza_Cliente extends AppCompatActivity {
                 }
             }
         });
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void siguienteP1(){
         inf = new InformacionCliente();
