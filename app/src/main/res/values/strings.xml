@@ -21,4 +21,6 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="añadirP">Añadir +</string>
+    <string name="bebidaSel">Escoja su bebida:</string>
+    <string name="resPedido">Finalizar pedido</string>
 </resources>
