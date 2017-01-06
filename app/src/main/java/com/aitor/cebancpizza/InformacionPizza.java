@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 
 public class InformacionPizza implements Serializable{
-    String tipo, masa, tamano;
-    int cantidad;
-    float total;
+    private String tipo, masa, tamano;
+    private int cantidad;
+    private float total;
 
     public void setTipo(String tipo){this.tipo=tipo;}
     public void setMasa(String masa){this.masa=masa;}
