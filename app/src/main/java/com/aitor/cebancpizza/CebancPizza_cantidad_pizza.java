@@ -2,6 +2,7 @@ package com.aitor.cebancpizza;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,8 +27,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private EditText cant;
     private Button mas, menos, anadir;
     private String nomMasa, nomTamano;
-    InformacionPizza pizza;
-    ArrayList<InformacionPizza> pizzas = new ArrayList();
+    InformacionPizza pizza = new InformacionPizza();
+    ArrayList<InformacionPizza> pizzas;
     Bundle extras;
     int prMasa,prTipo;
 
@@ -42,6 +43,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         mas=(Button) findViewById(R.id.btnMas);
         menos=(Button) findViewById(R.id.btnMenos);
         extras = getIntent().getExtras();
+        pizza.setTipo(extras.getString("tipo"));
         pizzas = extras.getParcelableArrayList("pizza");
 
         mas.setOnClickListener(new View.OnClickListener() {
@@ -118,14 +120,13 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pizza.setTipo(extras.getString("tipo"));
                 pizza.setCantidad(cantidad);
                 pizza.setMasa(nomMasa);
                 pizza.setTamano(nomTamano);
                 pizza.setTotal(calculaTotal());
                 pizzas.add(pizza);
                 Intent intent = new Intent();
-                intent.putParcelableArrayListExtra("pizza",pizzas);
+                intent.putExtra("pizza",pizzas);
                 setResult(RESULT_OK, intent);
                 finish();
             }
