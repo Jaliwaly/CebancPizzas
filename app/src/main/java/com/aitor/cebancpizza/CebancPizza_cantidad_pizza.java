@@ -74,11 +74,11 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 switch (position){
                     case 0:
                         nomMasa="Masa Fina";
-                        prMasa=3;
+                        prMasa=0;
                         break;
                     case 1:
                         nomMasa="Masa Normal";
-                        prMasa=2;
+                        prMasa=1;
                         break;
                 }
                 total.setText("Total: " + Integer.toString(calculaTotal()));
@@ -97,7 +97,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         nomTamano="Individual";
-                        prTipo=1;
+                        prTipo=0;
                         break;
                     case 1:
                         nomTamano="Mediana";
@@ -105,7 +105,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                         break;
                     case 2:
                         nomTamano="Familiar";
-                        prTipo=3;
+                        prTipo=5;
                         break;
                 }
                 total.setText("Total: " + Integer.toString(calculaTotal()));
@@ -146,8 +146,25 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     }
 
     private int calculaTotal(){
-        int suma = 0;
-        suma = (prMasa+prTipo)*cantidad;
+        int suma = 0,precioTipo=0;
+        switch(extras.getString("tipo")){
+            case "Carbonara":
+                precioTipo=10;
+                break;
+            case "Barbacoa":
+                precioTipo=10;
+                break;
+            case "4 quesos":
+                precioTipo=9;
+                break;
+            case "Vegetal":
+                precioTipo=12;
+                break;
+            case "Tropical":
+                precioTipo=12;
+                break;
+        }
+        suma = (precioTipo+prMasa+prTipo)*cantidad;
         return suma;
     }
 }

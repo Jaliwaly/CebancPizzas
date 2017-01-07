@@ -2,7 +2,6 @@ package com.aitor.cebancpizza;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
     private ArrayList<InformacionPizza> pizzas;
     private TextView infoCliente,infoFactura,infoPrecio,infoTotal,infoRegalo,infoCantidad;
     private String factura,precio,cantidad;
-    private float total=0;
+    private double total=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +37,11 @@ public class CebancPizza_pedido extends AppCompatActivity {
         infoCantidad = (TextView) findViewById(R.id.txtCantidad);
 
         infoCliente.setText("Información del cliente:\n\nNombre: "+cliente.getNombre()+"\nDirección: "+cliente.getDireccion()+"\nTeléfono: "+cliente.getTelefono()+"\n\n");
-        factura="Artículos pedidos:\n\n";
-        cantidad="Cantidad:\n\n";
-        precio="Precio:\n\n";
+        factura="Artículos pedidos\n\n";
+        cantidad="Cant.\n\n";
+        precio="Precio\n\n";
         for(int cont=0;cont<pizzas.size();cont++){
-            factura+=pizzas.get(cont).getTipo()+" tamaño "+pizzas.get(cont).getTamano()+" "+pizzas.get(cont).getMasa()+"\n";
+            factura+=pizzas.get(cont).getTipo()+" "+pizzas.get(cont).getTamano()+" "+pizzas.get(cont).getMasa()+"\n";
             cantidad+=pizzas.get(cont).getCantidad()+"\n";
             precio+=pizzas.get(cont).getTotal()+"€\n";
             total+=pizzas.get(cont).getTotal();
@@ -50,6 +49,8 @@ public class CebancPizza_pedido extends AppCompatActivity {
         for(int cont=0;cont<bebidas.size();cont++){
             factura +=bebidas.get(cont).getTipo()+"\n";
             cantidad+=bebidas.get(cont).getCantidad()+"\n";
+            precio+=bebidas.get(cont).getTotal()+"\n";
+            total+=bebidas.get(cont).getTotal();
         }
         infoFactura.setText(factura);
         infoCantidad.setText(cantidad);

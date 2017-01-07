@@ -15,12 +15,12 @@
     <string name="aceptar">Aceptar</string>
     <string-array name="tipoMasa">
         <item>Masa Fina</item>
-        <item>Masa Normal</item>
+        <item>Masa Normal -> 1€ más</item>
     </string-array>
     <string-array name="tamano">
         <item>Individual</item>
-        <item>Mediana</item>
-        <item>Familiar</item>
+        <item>Mediana -> 2€ más</item>
+        <item>Familiar -> 5€ más</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="añadirP">Añadir +</string>

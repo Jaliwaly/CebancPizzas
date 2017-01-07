@@ -41,22 +41,16 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         txtNestea = (EditText) findViewById(R.id.txtNest);
         txtCerveza = (EditText) findViewById(R.id.txtCerveza);
         txtAgua = (EditText) findViewById(R.id.txtAgua);
-        txtCocacola.setText("0");
-        txtLimon.setText("0");
-        txtNaranja.setText("0");
-        txtNestea.setText("0");
-        txtCerveza.setText("0");
-        txtAgua.setText("0");
         cocacola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtCocacola.getText().toString()) > 0) {
-                        anadir("Coca Cola", Integer.parseInt(txtCocacola.getText().toString()));
-                        txtCocacola.setText("0");
+                        anadir("Coca Cola", Integer.parseInt(txtCocacola.getText().toString()),1.95);
+                        txtCocacola.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
-                        txtCocacola.setText("0");
+                        txtCocacola.setText("");
                         mensaje("No puede pedir cero elementos o menos");
                     }
                 }catch(NumberFormatException e){
@@ -69,11 +63,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtLimon.getText().toString()) > 0) {
-                        anadir("Limon Soda", Integer.parseInt(txtLimon.getText().toString()));
-                        txtLimon.setText("0");
+                        anadir("Limon Soda", Integer.parseInt(txtLimon.getText().toString()),1.50);
+                        txtLimon.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
-                        txtLimon.setText("0");
+                        txtLimon.setText("");
                         mensaje("No puede pedir cero elementos o menos");
                     }
                 }catch(NumberFormatException e){
@@ -86,11 +80,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtNaranja.getText().toString()) > 0) {
-                        anadir("Fanta Naranja", Integer.parseInt(txtNaranja.getText().toString()));
-                        txtNaranja.setText("0");
+                        anadir("Fanta Naranja", Integer.parseInt(txtNaranja.getText().toString()),1.95);
+                        txtNaranja.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
-                        txtNaranja.setText("0");
+                        txtNaranja.setText("");
                         mensaje("No puede pedir cero elementos o menos");
                     }
                 }catch(NumberFormatException e){
@@ -103,11 +97,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtNestea.getText().toString()) > 0) {
-                        anadir("Nestea", Integer.parseInt(txtNestea.getText().toString()));
-                        txtNestea.setText("0");
+                        anadir("Nestea", Integer.parseInt(txtNestea.getText().toString()),1.85);
+                        txtNestea.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
-                        txtNestea.setText("0");
+                        txtNestea.setText("");
                         mensaje("No puede pedir cero elementos o menos");
                     }
                 }catch(NumberFormatException e){
@@ -120,11 +114,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtCerveza.getText().toString()) > 0) {
-                        anadir("Cerveza Cruzcampo", Integer.parseInt(txtCerveza.getText().toString()));
-                        txtCerveza.setText("0");
+                        anadir("Cerveza Cruzcampo", Integer.parseInt(txtCerveza.getText().toString()),1.55);
+                        txtCerveza.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
-                        txtCerveza.setText("0");
+                        txtCerveza.setText("");
                         mensaje("No puede pedir cero elementos o menos");
                     }
                 }catch(NumberFormatException e){
@@ -137,11 +131,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtAgua.getText().toString()) > 0) {
-                        anadir("Agua", Integer.parseInt(txtAgua.getText().toString()));
-                        txtAgua.setText("0");
+                        anadir("Agua", Integer.parseInt(txtAgua.getText().toString()),1.35);
+                        txtAgua.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
-                        txtAgua.setText("0");
+                        txtAgua.setText("");
                         mensaje("No puede pedir cero elementos o menos");
                     }
                 }catch(NumberFormatException e){
@@ -156,7 +150,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             }
         });
     }
-    private void anadir(String tipo, int cantidad){
+    private void anadir(String tipo, int cantidad,double precio){
         int cant;
         boolean encontrado=false;
         elemento = new InformacionBebidas();
@@ -165,6 +159,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             if(elemento.getTipo().equals(tipo)){
                 cant=elemento.getCantidad();
                 elemento.setCantidad(cant+cantidad);
+                elemento.setTotal(elemento.getCantidad()*precio);
                 bebidas.set(cont,elemento);
                 encontrado = true;
             }
@@ -173,6 +168,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             elemento = new InformacionBebidas();
             elemento.setTipo(tipo);
             elemento.setCantidad(cantidad);
+            elemento.setTotal(precio*cantidad);
             bebidas.add(elemento);
         }
     }

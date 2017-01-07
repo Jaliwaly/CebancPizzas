@@ -51,7 +51,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         quesos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                anadir("Cuatro quesos");
+                anadir("4 quesos");
             }
         });
         vegetal.setOnClickListener(new View.OnClickListener() {
