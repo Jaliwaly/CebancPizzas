@@ -50,6 +50,13 @@
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
+        <activity android:name=".CebancPizza_carrito">
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+
+                <category android:name="android.intent.category.ALTERNATIVE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

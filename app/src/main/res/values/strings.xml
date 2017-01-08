@@ -26,4 +26,11 @@
     <string name="añadirP">Añadir +</string>
     <string name="bebidaSel">Escoja su bebida:</string>
     <string name="resPedido">Finalizar pedido</string>
+    <string name="borradoCarrito">SU PEDIDO</string>
+    <string name="pizzasPedido">Sus pizzas:</string>
+    <string name="bebidasPedido">Sus bebidas:</string>
+    <string name="btnLineaCompleta">Eliminar pizza</string>
+    <string name="btnLineaCompletaB">ELIMINAR BEBIDA</string>
+    <string name="atras">Volver</string>
+    <string name="tot">Precio de tu pedido:</string>
 </resources>

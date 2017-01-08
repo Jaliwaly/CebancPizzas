@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
     String texto;
     InformacionCliente client;
     Button carbonara, barbacoa, quesos, vegetal, tropical, nextBebidas;
+    ImageButton carro;
     ArrayList<EstructuraArray> datosPizza = new ArrayList();
     ArrayList<InformacionPizza> pizza = new ArrayList();
 
@@ -30,6 +32,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         client = (InformacionCliente) datosPizza.get(0).getObj();
         texto = "Escoja su pizza, "+client.getNombre();
         textopru.setText(texto);
+        carro = (ImageButton) findViewById(R.id.carrito);
         carbonara=(Button) findViewById(R.id.btnCarbonara);
         barbacoa = (Button) findViewById(R.id.btnBarbacoa);
         quesos = (Button) findViewById(R.id.btnQuesos);
@@ -72,6 +75,12 @@ public class CebancPizza_Carta extends AppCompatActivity{
                 siguienteBebidas();
             }
         });
+        carro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carrito();
+            }
+        });
     }
     public void anadir(String tipo){
 
@@ -87,8 +96,13 @@ public class CebancPizza_Carta extends AppCompatActivity{
         i.putExtra("datos",datosPizza);
         startActivity(i);
     }
+    public void carrito(){
+        Intent i = new Intent(this,CebancPizza_carrito.class);
+        i.putExtra("pizza", pizza);
+        startActivityForResult(i,12345);
+    }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (requestCode==1234 && resultCode==RESULT_OK) {
+        if (requestCode==1234 && resultCode==RESULT_OK || resultCode==12345 && requestCode==RESULT_OK) {
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
         }
     }
