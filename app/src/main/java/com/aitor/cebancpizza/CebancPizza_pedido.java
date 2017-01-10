@@ -1,8 +1,13 @@
 package com.aitor.cebancpizza;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -13,10 +18,12 @@ import java.util.ArrayList;
 public class CebancPizza_pedido extends AppCompatActivity {
     private Bundle extras;
     private ArrayList<EstructuraArray> datos;
+    private AlertDialog.Builder confirmacion;
     private ArrayList<InformacionBebidas> bebidas;
     private InformacionCliente cliente;
     private ArrayList<InformacionPizza> pizzas;
     private TextView infoCliente,infoFactura,infoPrecio,infoTotal,infoRegalo,infoCantidad;
+    private Button aceptar,salir;
     private String factura,precio,cantidad;
     private double total=0;
 
@@ -24,6 +31,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_pedido);
+        confirmacion = new AlertDialog.Builder(this);
         extras = getIntent().getExtras();
         datos = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
         cliente = (InformacionCliente) datos.get(0).getObj();
@@ -35,6 +43,33 @@ public class CebancPizza_pedido extends AppCompatActivity {
         infoTotal = (TextView) findViewById(R.id.txtTotal);
         infoRegalo = (TextView) findViewById(R.id.txtRegalos);
         infoCantidad = (TextView) findViewById(R.id.txtCantidad);
+        aceptar = (Button) findViewById(R.id.btnAceptar);
+        salir = (Button) findViewById(R.id.btnSalir);
+
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        aceptar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmacion.setMessage("Gracias por realizar su compra, Buen provecho");
+                confirmacion.setTitle("Entrega confirmada");
+                confirmacion.setPositiveButton("OK", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+
+                });
+                confirmacion.setCancelable(true);
+                confirmacion.create().show();
+            }
+        });
 
         infoCliente.setText("Información del cliente:\n\nNombre: "+cliente.getNombre()+"\nDirección: "+cliente.getDireccion()+"\nTeléfono: "+cliente.getTelefono()+"\n\n");
         factura="Artículos pedidos\n\n";
@@ -60,6 +95,8 @@ public class CebancPizza_pedido extends AppCompatActivity {
             infoRegalo.setText("Regalos especiales por su compra:\n\nPeluche Android\nVale para comer en el comedor de Cebanc");
         else if(total >20)
             infoRegalo.setText("Regalo especial por su compra:\n\nPeluche Android");
-
+    }
+    public void mensaje(String mensaje){
+        Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
     }
 }

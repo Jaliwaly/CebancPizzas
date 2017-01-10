@@ -181,5 +181,6 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         datos.add(datosBebidas);
         i.putExtra("datos",datos);
         startActivity(i);
+        finish();
     }
 }

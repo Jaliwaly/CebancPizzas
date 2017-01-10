@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -59,6 +57,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         Intent i = new Intent(this,CebancPizza_Carta.class);
         i.putExtra("datos",datos);
         startActivity(i);
+        finish();
     }
     private boolean ValidarDatos(){
         if (nom.getText().toString().equals("") || dir.getText().toString().equals("") || tlf.getText().toString().equals("")){

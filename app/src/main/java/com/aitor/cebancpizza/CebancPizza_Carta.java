@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -39,6 +38,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         vegetal = (Button) findViewById(R.id.btnVegetal);
         tropical = (Button) findViewById(R.id.btnTropical);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
+        finishActivity(1232);
         carbonara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +95,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         datosPizza.add(pizzas);
         i.putExtra("datos",datosPizza);
         startActivity(i);
+        finish();
     }
     public void carrito(){
         Intent i = new Intent(this,CebancPizza_carrito.class);
