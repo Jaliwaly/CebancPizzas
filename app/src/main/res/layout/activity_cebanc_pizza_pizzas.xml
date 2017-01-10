@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageButton
+    <Button
         android:id="@+id/carrito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="40dp"
-        android:src="@drawable/carro"/>
+        android:background="@drawable/carro"/>
 
     <Button
         android:id="@+id/sigBebidas"

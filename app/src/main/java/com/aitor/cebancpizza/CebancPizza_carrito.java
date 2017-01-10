@@ -26,8 +26,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
     private ArrayList<InformacionBebidas> bebidas;
     private ArrayList<InformacionPizza> pizzas;
     private ArrayAdapter<String> adaptador;
-    private List<String> carroPizzas;
-    private List<String> carroBebidas;
+    private List<String> carroPizzas = new ArrayList<String>();
+    private List<String> carroBebidas = new ArrayList<String>();
     int pos, numCantidad, total = 0;
 
     @Override
@@ -52,10 +52,15 @@ public class CebancPizza_carrito extends AppCompatActivity {
         adaptador = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, carroPizzas);
         adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnPizzas.setAdapter(adaptador);
-        spnPizzas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spnPizzas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 pos = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
         btnSupPizza.setOnClickListener(new View.OnClickListener() {
