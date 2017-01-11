@@ -185,6 +185,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     }
     public void finalizarCompra(){
         Intent i = new Intent(this,CebancPizza_pedido.class);
+        EstructuraArray pizzas = new EstructuraArray("Pizzas",pizza);
         EstructuraArray datosBebidas = new EstructuraArray("Bebidas",bebidas);
         datos.add(datosBebidas);
         i.putExtra("datos",datos);
@@ -192,9 +193,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         finish();
     }
     public void carrito(){
+        int requestCode = 123456;
         Intent i = new Intent(this,CebancPizza_carrito.class);
         i.putExtra("bebidas", bebidas);
-        startActivityForResult(i,123456);
+        i.putExtra("requestCode",requestCode);
+        startActivityForResult(i,requestCode);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==123456 && resultCode==RESULT_OK) {

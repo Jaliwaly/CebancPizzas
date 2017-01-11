@@ -98,9 +98,11 @@ public class CebancPizza_Carta extends AppCompatActivity{
         finish();
     }
     public void carrito(){
+        int requestCode = 12345;
         Intent i = new Intent(this,CebancPizza_carrito.class);
         i.putExtra("pizza", pizza);
-        startActivityForResult(i,12345);
+        i.putExtra("requestCode",requestCode);
+        startActivityForResult(i,requestCode);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==1234 && resultCode==RESULT_OK || resultCode==12345 && requestCode==RESULT_OK) {
