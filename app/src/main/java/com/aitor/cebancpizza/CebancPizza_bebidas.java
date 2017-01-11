@@ -15,12 +15,13 @@ import java.util.ArrayList;
  */
 
 public class CebancPizza_bebidas extends AppCompatActivity{
-    private Button cocacola, limon, naranja, nestea, cerveza, agua, finalizar;
+    private Button cocacola, limon, naranja, nestea, cerveza, agua, finalizar, cesta;
     private EditText txtCocacola, txtLimon, txtNaranja, txtNestea, txtCerveza, txtAgua;
     private ArrayList<InformacionBebidas> bebidas = new ArrayList();
     private InformacionBebidas elemento;
     private Bundle extras;
     private ArrayList<EstructuraArray> datos;
+    ArrayList<InformacionPizza> pizza = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         setContentView(R.layout.activity_cebanc_pizza_bebidas);
         extras = getIntent().getExtras();
         datos = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
+        cesta = (Button) findViewById(R.id.carritoB);
         cocacola=(Button) findViewById(R.id.btnCocacola);
         limon=(Button) findViewById(R.id.btnLimon);
         naranja=(Button) findViewById(R.id.btnNaranja);
@@ -143,6 +145,12 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 }
             }
         });
+        cesta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                carrito();
+            }
+        });
         finalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,5 +190,16 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         i.putExtra("datos",datos);
         startActivity(i);
         finish();
+    }
+    public void carrito(){
+        Intent i = new Intent(this,CebancPizza_carrito.class);
+        i.putExtra("bebidas", bebidas);
+        startActivityForResult(i,123456);
+    }
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        if (requestCode==123456 && resultCode==RESULT_OK) {
+            pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
+            bebidas=(ArrayList<InformacionBebidas>) data.getExtras().getSerializable("bebidas");
+        }
     }
 }

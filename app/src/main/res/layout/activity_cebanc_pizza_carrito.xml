@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@android:color/darker_gray">
 
     <TextView
         android:layout_width="match_parent"
@@ -11,44 +12,51 @@
         android:text="@string/borradoCarrito"
         android:gravity="center"
         android:textSize="25dp"
-        android:layout_marginBottom="15dp"/>
+        android:layout_marginBottom="15dp"
+        android:textColor="@android:color/white"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/pizzasPedido"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textColor="@android:color/white"/>
 
     <Spinner
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spnPizzas"
-        android:background="@android:color/white"
-        android:layout_weight="0.01" />
+        android:layout_weight="0.01"
+        android:background="@android:color/background_light"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnLineaCompleta"
-        android:id="@+id/eliminarPizza"/>
+        android:id="@+id/eliminarPizza"
+        android:background="@android:color/holo_blue_dark"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="25dp">
+        android:layout_marginBottom="25dp"
+        android:paddingTop="10dp">
 
         <Button
             android:layout_width="192dp"
             android:layout_height="wrap_content"
             android:text="@string/mas"
-            android:id="@+id/masPizza"/>
+            android:id="@+id/masPizza"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_marginRight="10dp"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/menos"
-            android:id="@+id/menosPizza"/>
+            android:id="@+id/menosPizza"
+            android:background="@android:color/holo_blue_dark"/>
 
     </LinearLayout>
 
@@ -56,37 +64,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/bebidasPedido"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textColor="@android:color/white"/>
 
     <Spinner
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spnBebidas"
-        android:background="@android:color/white"
-        android:layout_weight="0.01" />
+        android:layout_weight="0.01"
+        android:background="@android:color/background_light"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/btnLineaCompletaB"
-        android:id="@+id/eliminarBebida"/>
+        android:id="@+id/eliminarBebida"
+        android:background="@android:color/holo_blue_dark"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
 
         <Button
             android:layout_width="192dp"
             android:layout_height="wrap_content"
             android:text="@string/mas"
-            android:id="@+id/masBebida"/>
+            android:id="@+id/masBebida"
+            android:background="@android:color/holo_blue_dark"
+            android:layout_marginRight="10dp"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/menos"
-            android:id="@+id/menosBebida"/>
+            android:id="@+id/menosBebida"
+            android:background="@android:color/holo_blue_dark"/>
 
     </LinearLayout>
 
@@ -105,6 +119,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/atras"
-        android:id="@+id/volver"/>
+        android:id="@+id/volver"
+        android:background="@android:color/holo_blue_dark"/>
 
 </LinearLayout>

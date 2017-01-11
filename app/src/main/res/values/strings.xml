@@ -33,4 +33,9 @@
     <string name="btnLineaCompletaB">ELIMINAR BEBIDA</string>
     <string name="atras">Volver</string>
     <string name="tot">Precio de tu pedido:</string>
+    <string name="carbonara">Pizza Carbonara</string>
+    <string name="barbacoa">Pizza Barbacoa</string>
+    <string name="quesos">Pizza 4 Quesos</string>
+    <string name="vegetal">Pizza Vegetal</string>
+    <string name="tropical">Pizza Tropical</string>
 </resources>

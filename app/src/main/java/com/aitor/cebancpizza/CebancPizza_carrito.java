@@ -45,9 +45,14 @@ public class CebancPizza_carrito extends AppCompatActivity {
         spnPizzas = (Spinner) findViewById(R.id.spnPizzas);
         extras = getIntent().getExtras();
         pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
+        bebidas = (ArrayList<InformacionBebidas>) extras.getSerializable("bebidas");
         for(int cont=0;cont<pizzas.size();cont++){
             carroPizzas.add(pizzas.get(cont).getTipo()+" tamaño "+pizzas.get(cont).getTamano()+" "+pizzas.get(cont).getMasa()+" X "+pizzas.get(cont).getCantidad());
             total+=pizzas.get(cont).getTotal();
+        }
+        for(int cont=0;cont<bebidas.size();cont++){
+            carroBebidas.add(bebidas.get(cont).getTipo()+" X "+bebidas.get(cont).getCantidad());
+            total+=bebidas.get(cont).getTotal();
         }
         adaptador = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, carroPizzas);
         adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -66,40 +71,38 @@ public class CebancPizza_carrito extends AppCompatActivity {
         btnSupPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                carroPizzas.remove(pos);
-                pizzas.remove(pos);
-                mensaje("Se ha eliminado la pizza seleccionada de tu pedido");
-                precioTot.setText(precioTot.getText()+ Integer.toString(calculaTotal())+" €");
+                eliminarPizza();
+                actuListaPizzas();
             }
         });
         btnSupBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                carroPizzas.remove(pos);
+                eliminarBebida();
             }
         });
         btnMasPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numCantidad = pizzas.get(pos).getCantidad();
-                numCantidad += 1;
-                pizzas.get(pos).setCantidad(numCantidad);
-                mensaje("Se ha añadido una unidad mas de la pizza seleccionada");
-                precioTot.setText(precioTot.getText()+ "\n"+Integer.toString(calculaTotal())+" €");
+               añadirPizza();
             }
         });
         btnMenosPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pizzas.get(pos).getCantidad()>1) {
-                    numCantidad = pizzas.get(pos).getCantidad();
-                    numCantidad -= 1;
-                    pizzas.get(pos).setCantidad(numCantidad);
-                    precioTot.setText(precioTot.getText() +"\n"+ Integer.toString(calculaTotal()) + " €");
-                }else{
-                    carroPizzas.remove(pos);
-                    pizzas.remove(pos);
-                }
+                restarPizza();
+            }
+        });
+        btnMasBebida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                añadirBebida();
+            }
+        });
+        btnMenosBebida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restarBebida();
             }
         });
         btnVolver.setOnClickListener(new View.OnClickListener() {
@@ -125,5 +128,72 @@ public class CebancPizza_carrito extends AppCompatActivity {
     }
     public void mensaje(String mensaje){
         Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
+    }
+
+    public void actuListaPizzas(){
+        carroPizzas.clear();
+        for(int cont=0;cont<pizzas.size();cont++) {
+            carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
+        }
+    }
+
+    public void actuListaBebidas(){
+        carroBebidas.clear();
+        for(int cont=0;cont<pizzas.size();cont++) {
+            carroBebidas.add(bebidas.get(cont).getTipo() + " X " + bebidas.get(cont).getCantidad());
+        }
+    }
+
+    public void eliminarPizza(){
+        carroPizzas.remove(pos);
+        pizzas.remove(pos);
+        mensaje("Se ha eliminado la pizza seleccionada de tu pedido");
+        actuListaPizzas();
+        precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal())+" €");
+    }
+    public void añadirPizza(){
+        numCantidad = pizzas.get(pos).getCantidad();
+        numCantidad += 1;
+        pizzas.get(pos).setCantidad(numCantidad);
+        mensaje("Se ha añadido una unidad mas de la pizza seleccionada");
+        precioTot.setText(precioTot.getText()+ "\n"+Integer.toString(calculaTotal())+" €");
+    }
+    public void restarPizza(){
+        if(pizzas.get(pos).getCantidad()>1) {
+            numCantidad = pizzas.get(pos).getCantidad();
+            numCantidad -= 1;
+            pizzas.get(pos).setCantidad(numCantidad);
+            precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal()) + " €");
+        }else{
+            carroPizzas.remove(pos);
+            pizzas.remove(pos);
+            actuListaPizzas();
+        }
+    }
+    public void eliminarBebida(){
+        carroBebidas.remove(pos);
+        bebidas.remove(pos);
+        mensaje("Se ha eliminado la bebida seleccionada de tu pedido");
+        actuListaBebidas();
+        precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal())+" €");
+    }
+    public void añadirBebida(){
+        numCantidad = bebidas.get(pos).getCantidad();
+        numCantidad += 1;
+        bebidas.get(pos).setCantidad(numCantidad);
+        mensaje("Se ha añadido una unidad mas de la bebida seleccionada");
+        precioTot.setText(precioTot.getText()+ "\n"+Integer.toString(calculaTotal())+" €");
+    }
+    public void restarBebida(){
+        if(bebidas.get(pos).getCantidad()>1) {
+            numCantidad = bebidas.get(pos).getCantidad();
+            numCantidad -= 1;
+            bebidas.get(pos).setCantidad(numCantidad);
+            precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal()) + " €");
+        }else{
+            carroBebidas.remove(pos);
+            bebidas.remove(pos);
+            actuListaPizzas();
+        }
     }
 }
