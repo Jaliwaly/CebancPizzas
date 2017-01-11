@@ -47,14 +47,27 @@ public class CebancPizza_carrito extends AppCompatActivity {
         spnBebidas = (Spinner) findViewById(R.id.spnBebidas);
         extras = getIntent().getExtras();
         ventana = extras.getString("requestCode");
-        pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
-        for(int cont=0;cont<pizzas.size();cont++){
-            carroPizzas.add(pizzas.get(cont).getTipo()+" tamaño "+pizzas.get(cont).getTamano()+" "+pizzas.get(cont).getMasa()+" X "+pizzas.get(cont).getCantidad());
-            total+=pizzas.get(cont).getTotal();
+        if (ventana == "12345") {
+            pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
+            for (int cont = 0; cont < pizzas.size(); cont++) {
+                carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
+                total += pizzas.get(cont).getTotal();
+            }
+            adaptador = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, carroPizzas);
+            adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+            spnPizzas.setAdapter(adaptador);
+            spnPizzas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    pos = position;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
-        adaptador = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, carroPizzas);
-        adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spnPizzas.setAdapter(adaptador);
         if (ventana == "123456") {
             bebidas = (ArrayList<InformacionBebidas>) extras.getSerializable("bebidas");
             for (int cont = 0; cont < bebidas.size(); cont++) {
@@ -76,17 +89,6 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             });
         }
-        spnPizzas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                pos = position;
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         btnSupPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
