@@ -109,4 +109,5 @@ public class CebancPizza_Carta extends AppCompatActivity{
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
         }
     }
+
 }

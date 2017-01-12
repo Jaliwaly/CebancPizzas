@@ -1,5 +1,9 @@
 package com.aitor.cebancpizza;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,40 +15,79 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class CebancPizza_portada extends FragmentActivity implements OnMapReadyCallback{
+public class CebancPizza_portada extends FragmentActivity implements OnMapReadyCallback {
+    private FirstMapFragment mFirstMapFragment;
+    private Button sig, tlf;
 
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_portada);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        sig = (Button) findViewById(R.id.btnSDatos);
+        tlf = (Button) findViewById(R.id.btnTlf);
+        mFirstMapFragment = FirstMapFragment.newInstance();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.map, mFirstMapFragment)
+                .commit();
+
+        // Registrar escucha onMapReadyCallback
+        mFirstMapFragment.getMapAsync(this);
+        sig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lanzaCliente();
+            }
+        });
+        tlf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lanzaTlf();
+            }
+        });
     }
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
+    public void lanzaCliente() {
+        Intent i = new Intent(this, CebancPizza_Cliente.class);
+        startActivity(i);
+    }
+
+    public void lanzaTlf() {
+        Intent i = new Intent(Intent.ACTION_CALL);
+        i.setData(Uri.parse("tel:943001100"));
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startActivity(i);
+    }
+
+    //Generar y especificar el lugar del mapa
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng cebanc = new LatLng(43.30469411639206, -2.0168709754943848);
-        mMap.addMarker(new MarkerOptions().position(cebanc).title("CEBANC PIZZA"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(cebanc));
-    }
+        googleMap.addMarker(new MarkerOptions()
+                .position(cebanc)
+                .title("CebancPizza"));
+
+        CameraPosition cameraPosition = CameraPosition.builder()
+                .target(cebanc)
+                .zoom(13)
+                .build();
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+}
 }

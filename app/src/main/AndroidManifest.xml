@@ -3,6 +3,8 @@
     package="com.aitor.cebancpizza">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="com.aitor.cebancpizza.permission.MAPS_RECEIVE" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +14,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".CebancPizza_Cliente">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.ASSIST" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
         <activity android:name=".CebancPizza_Carta">
@@ -55,11 +57,13 @@
         <activity
             android:name=".CebancPizza_portada">
             <intent-filter>
-                <action android:name="android.intent.action.ASSIST" />
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.ALTERNATIVE" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
     </application>
-
 </manifest>
