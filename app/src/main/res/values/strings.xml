@@ -40,16 +40,10 @@
     <string name="tropical">Pizza Tropical 12€</string>
     <string name="tlf">Tlf contacto</string>
     <string name="cebanc">Berio Pasealekua, 50, 20018 Donostia, Gipuzkoa</string>
-    <string name="cocacola">CocaCola</string>
-    <string name="prCocacola">1,95€</string>
-    <string name="limonsoda">Limon Soda</string>
-    <string name="prLimonsoda">1,50€</string>
-    <string name="fanta">Fanta</string>
-    <string name="prFanta">1,95€</string>
-    <string name="nestea">Nestea</string>
-    <string name="prNestea">1,85€</string>
-    <string name="cerveza">Cerveza</string>
-    <string name="prCerveza">1,55€</string>
-    <string name="agua">Agua</string>
-    <string name="prAgua">1,35€</string>
+    <string name="cocacola">CocaCola 1,95€</string>
+    <string name="limonsoda">Limon Soda 1,50€</string>
+    <string name="fanta">Fanta 1,95€</string>
+    <string name="nestea">Nestea 1,85€</string>
+    <string name="cerveza">Cerveza 1,55€</string>
+    <string name="agua">Agua 1,35€</string>
 </resources>
