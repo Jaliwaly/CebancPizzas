@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 
 public class CebancPizza_bebidas extends AppCompatActivity{
-    private Button cocacola, limon, naranja, nestea, cerveza, agua, finalizar, cesta;
+    private Button cocacola, limon, naranja, nestea, cerveza, agua, finalizar, cesta, salir;
     private EditText txtCocacola, txtLimon, txtNaranja, txtNestea, txtCerveza, txtAgua;
     private ArrayList<InformacionBebidas> bebidas = new ArrayList();
     private InformacionBebidas elemento;
@@ -29,6 +29,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         setContentView(R.layout.activity_cebanc_pizza_bebidas);
         extras = getIntent().getExtras();
         datos = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
+        salir = (Button) findViewById(R.id.btnSalirBebidas);
         cesta = (Button) findViewById(R.id.carritoB);
         cocacola=(Button) findViewById(R.id.btnCocacola);
         limon=(Button) findViewById(R.id.btnLimon);
@@ -155,6 +156,12 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 finalizarCompra();
+            }
+        });
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

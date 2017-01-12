@@ -16,7 +16,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
     TextView textopru;
     String texto;
     InformacionCliente client;
-    Button carbonara, barbacoa, quesos, vegetal, tropical, nextBebidas;
+    Button carbonara, barbacoa, quesos, vegetal, tropical, nextBebidas, salir;
     Button carro;
     ArrayList<EstructuraArray> datosPizza = new ArrayList();
     ArrayList<InformacionPizza> pizza = new ArrayList();
@@ -31,6 +31,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         client = (InformacionCliente) datosPizza.get(0).getObj();
         texto = "Escoja su pizza, "+client.getNombre();
         textopru.setText(texto);
+        salir = (Button) findViewById(R.id.btnSalirPizzas);
         carro = (Button) findViewById(R.id.carrito);
         carbonara=(Button) findViewById(R.id.btnCarbonara);
         barbacoa = (Button) findViewById(R.id.btnBarbacoa);
@@ -79,6 +80,12 @@ public class CebancPizza_Carta extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 carrito();
+            }
+        });
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

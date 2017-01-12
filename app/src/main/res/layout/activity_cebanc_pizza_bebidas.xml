@@ -8,13 +8,23 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/carro"/>
     <Button
         android:id="@+id/resumenPedido"
         android:text="@string/resPedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:text="@string/salir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSalirBebidas"
+        android:layout_weight="1"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
 
