@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CebancPizza_portada extends FragmentActivity implements OnMapReadyCallback {
     private FirstMapFragment mFirstMapFragment;
-    private Button sig, tlf;
+    private Button sig, tlf, salir;
 
 
     @Override
@@ -31,6 +31,7 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
         setContentView(R.layout.activity_cebanc_pizza_portada);
         sig = (Button) findViewById(R.id.btnSDatos);
         tlf = (Button) findViewById(R.id.btnTlf);
+        salir = (Button) findViewById(R.id.btnSalir);
         mFirstMapFragment = FirstMapFragment.newInstance();
         getSupportFragmentManager()
                 .beginTransaction()
@@ -49,6 +50,12 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
             @Override
             public void onClick(View v) {
                 lanzaTlf();
+            }
+        });
+        salir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
