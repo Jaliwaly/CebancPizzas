@@ -105,14 +105,14 @@ public class CebancPizza_Carta extends AppCompatActivity{
         finish();
     }
     public void carrito(){
-        int requestCode = 12345;
+        int requestCode = 1233;
         Intent i = new Intent(this,CebancPizza_carrito.class);
         i.putExtra("pizza", pizza);
         i.putExtra("requestCode",requestCode);
         startActivityForResult(i,requestCode);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (requestCode==1234 && resultCode==RESULT_OK || resultCode==12345 && requestCode==RESULT_OK) {
+        if ((requestCode==1234 && resultCode==RESULT_OK) || (resultCode==1233 && requestCode==RESULT_OK)) {
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
         }
     }

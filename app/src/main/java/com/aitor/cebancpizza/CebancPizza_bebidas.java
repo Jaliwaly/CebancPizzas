@@ -21,7 +21,8 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     private InformacionBebidas elemento;
     private Bundle extras;
     private ArrayList<EstructuraArray> datos;
-    ArrayList<InformacionPizza> pizza = new ArrayList();
+    private ArrayList<InformacionPizza> pizza = new ArrayList();
+    private EstructuraArray pizzas, datosBebidas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         setContentView(R.layout.activity_cebanc_pizza_bebidas);
         extras = getIntent().getExtras();
         datos = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
+        pizza = (ArrayList<InformacionPizza>) datos.get(1).getObj();
         salir = (Button) findViewById(R.id.btnSalirBebidas);
         cesta = (Button) findViewById(R.id.carritoB);
         cocacola=(Button) findViewById(R.id.btnCocacola);
@@ -192,21 +194,24 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     }
     public void finalizarCompra(){
         Intent i = new Intent(this,CebancPizza_pedido.class);
-        EstructuraArray datosBebidas = new EstructuraArray("Bebidas",bebidas);
+        datosBebidas = new EstructuraArray("Bebidas",bebidas);
+        pizzas = new EstructuraArray("Pizzas",pizza);
+        datos.set(1,pizzas);
         datos.add(datosBebidas);
         i.putExtra("datos",datos);
         startActivity(i);
         finish();
     }
     public void carrito(){
-        int requestCode = 123456;
+        int requestCode = 12344;
         Intent i = new Intent(this,CebancPizza_carrito.class);
         i.putExtra("bebidas", bebidas);
+        i.putExtra("pizza",pizza);
         i.putExtra("requestCode",requestCode);
         startActivityForResult(i,requestCode);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (requestCode==123456 && resultCode==RESULT_OK) {
+        if (requestCode==12344 && resultCode==RESULT_OK) {
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
             bebidas=(ArrayList<InformacionBebidas>) data.getExtras().getSerializable("bebidas");
         }

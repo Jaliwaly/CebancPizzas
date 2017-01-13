@@ -47,7 +47,6 @@ public class CebancPizza_carrito extends AppCompatActivity {
         spnBebidas = (Spinner) findViewById(R.id.spnBebidas);
         extras = getIntent().getExtras();
         ventana = extras.getInt("requestCode");
-        if (ventana == 12345) {
             pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
             for (int cont = 0; cont < pizzas.size(); cont++) {
                 carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
@@ -67,8 +66,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
 
                 }
             });
-        }
-        if (ventana == 123456) {
+        if (ventana == 12344) {
             bebidas = (ArrayList<InformacionBebidas>) extras.getSerializable("bebidas");
             for (int cont = 0; cont < bebidas.size(); cont++) {
                 carroBebidas.add(bebidas.get(cont).getTipo() + " X " + bebidas.get(cont).getCantidad());
@@ -92,38 +90,61 @@ public class CebancPizza_carrito extends AppCompatActivity {
         btnSupPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminarPizza();
-                actuListaPizzas();
+                try {
+                    eliminarPizza();
+                }catch (IndexOutOfBoundsException e){
+                    mensaje("No hay elementos seleccionados");
+                }
             }
         });
         btnSupBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminarBebida();
+                try {
+                    eliminarBebida();
+                }catch (IndexOutOfBoundsException e){
+                    mensaje("No hay elementos seleccionados");
+                }
             }
         });
         btnMasPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               añadirPizza();
+                try {
+                    anadirPizza();
+                }catch (IndexOutOfBoundsException e){
+                    mensaje("No hay elementos seleccionados");
+                }
             }
         });
         btnMenosPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restarPizza();
+                try {
+                    restarPizza();
+                }catch (IndexOutOfBoundsException e){
+                    mensaje("No hay elementos seleccionados");
+                }
             }
         });
         btnMasBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                añadirBebida();
+                try {
+                    anadirBebida();
+                }catch (IndexOutOfBoundsException | NullPointerException e){
+                    mensaje("No hay elementos seleccionados");
+                }
             }
         });
         btnMenosBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restarBebida();
+                try {
+                    restarBebida();
+                }catch (IndexOutOfBoundsException | NullPointerException e){
+                    mensaje("No hay elementos seleccionados");
+                }
             }
         });
         btnVolver.setOnClickListener(new View.OnClickListener() {
@@ -137,6 +158,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
     public void atras(){
         Intent intent = new Intent();
         intent.putExtra("pizza",pizzas);
+        intent.putExtra("bebidas",bebidas);
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -151,74 +173,76 @@ public class CebancPizza_carrito extends AppCompatActivity {
         Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
     }
 
-    public void actuListaPizzas(){
-        carroPizzas.clear();
-        for(int cont=0;cont<pizzas.size();cont++) {
-            carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
-        }
-        adaptador.notifyDataSetChanged();
-    }
-
-    public void actuListaBebidas(){
-        carroBebidas.clear();
-        for(int cont=0;cont<pizzas.size();cont++) {
-            carroBebidas.add(bebidas.get(cont).getTipo() + " X " + bebidas.get(cont).getCantidad());
-        }
-        adaptador2.notifyDataSetChanged();
-    }
-
     public void eliminarPizza(){
-        carroPizzas.remove(pos);
-        pizzas.remove(pos);
-        mensaje("Se ha eliminado la pizza seleccionada de tu pedido");
-        actuListaPizzas();
-        precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal())+" €");
+            carroPizzas.remove(pos);
+            pizzas.remove(pos);
+            mensaje("Se ha eliminado la pizza seleccionada de tu pedido");
+            precioTot.setText("Precio de tu pedido: " + Integer.toString(calculaTotal()) + " €");
+            adaptador.notifyDataSetChanged();
     }
-    public void añadirPizza(){
+    public void anadirPizza(){
+        float precio = pizzas.get(pos).getTotal();
         numCantidad = pizzas.get(pos).getCantidad();
+        precio = precio / numCantidad;
         numCantidad += 1;
+        precio*=numCantidad;
+        pizzas.get(pos).setTotal(precio);
         pizzas.get(pos).setCantidad(numCantidad);
         mensaje("Se ha añadido una unidad mas de la pizza seleccionada");
-        precioTot.setText(precioTot.getText()+ "\n"+Integer.toString(calculaTotal())+" €");
+        precioTot.setText("Precio de tu pedido: "+ Integer.toString(calculaTotal())+" €");
         carroPizzas.set(pos,pizzas.get(pos).getTipo() + " tamaño " + pizzas.get(pos).getTamano() + " " + pizzas.get(pos).getMasa() + " X " + pizzas.get(pos).getCantidad());
         adaptador.notifyDataSetChanged();
     }
     public void restarPizza(){
         if(pizzas.get(pos).getCantidad()>1) {
+            float precio = pizzas.get(pos).getTotal();
             numCantidad = pizzas.get(pos).getCantidad();
+            precio /= numCantidad;
             numCantidad -= 1;
+            precio*=numCantidad;
+            pizzas.get(pos).setTotal(precio);
             pizzas.get(pos).setCantidad(numCantidad);
-            precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal()) + " €");
+            precioTot.setText("Precio de tu pedido: "+ Integer.toString(calculaTotal())+" €");
+            carroPizzas.set(pos,pizzas.get(pos).getTipo() + " tamaño " + pizzas.get(pos).getTamano() + " " + pizzas.get(pos).getMasa() + " X " + pizzas.get(pos).getCantidad());
+            adaptador.notifyDataSetChanged();
         }else{
-            carroPizzas.remove(pos);
-            pizzas.remove(pos);
-            actuListaPizzas();
+            eliminarPizza();
         }
     }
     public void eliminarBebida(){
         carroBebidas.remove(pos2);
         bebidas.remove(pos2);
         mensaje("Se ha eliminado la bebida seleccionada de tu pedido");
-        actuListaBebidas();
-        precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal())+" €");
+        precioTot.setText("Precio de tu pedido: "+ Integer.toString(calculaTotal())+" €");
+        adaptador2.notifyDataSetChanged();
     }
-    public void añadirBebida(){
+    public void anadirBebida(){
+        double precio = bebidas.get(pos2).getTotal();
         numCantidad = bebidas.get(pos2).getCantidad();
+        precio /= numCantidad;
         numCantidad += 1;
+        precio*=numCantidad;
+        bebidas.get(pos2).setTotal(precio);
         bebidas.get(pos2).setCantidad(numCantidad);
         mensaje("Se ha añadido una unidad mas de la bebida seleccionada");
-        precioTot.setText(precioTot.getText()+ "\n"+Integer.toString(calculaTotal())+" €");
+        precioTot.setText("Precio de tu pedido: "+ Integer.toString(calculaTotal())+" €");
+        carroBebidas.set(pos2,bebidas.get(pos2).getTipo() + " X " + bebidas.get(pos2).getCantidad());
+        adaptador2.notifyDataSetChanged();
     }
     public void restarBebida(){
         if(bebidas.get(pos2).getCantidad()>1) {
-            numCantidad = bebidas.get(pos).getCantidad();
+            double precio = bebidas.get(pos2).getTotal();
+            numCantidad = bebidas.get(pos2).getCantidad();
+            precio /= numCantidad;
             numCantidad -= 1;
-            bebidas.get(pos).setCantidad(numCantidad);
-            precioTot.setText("Precio de tu pedido: \n"+ Integer.toString(calculaTotal()) + " €");
+            precio*=numCantidad;
+            bebidas.get(pos2).setTotal(precio);
+            bebidas.get(pos2).setCantidad(numCantidad);
+            precioTot.setText("Precio de tu pedido: "+ Integer.toString(calculaTotal()) + " €");
+            carroBebidas.set(pos2,bebidas.get(pos2).getTipo() + " X " + bebidas.get(pos2).getCantidad());
+            adaptador2.notifyDataSetChanged();
         }else{
-            carroBebidas.remove(pos2);
-            bebidas.remove(pos2);
-            actuListaPizzas();
+            eliminarBebida();
         }
     }
 }
