@@ -192,7 +192,6 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     }
     public void finalizarCompra(){
         Intent i = new Intent(this,CebancPizza_pedido.class);
-        EstructuraArray pizzas = new EstructuraArray("Pizzas",pizza);
         EstructuraArray datosBebidas = new EstructuraArray("Bebidas",bebidas);
         datos.add(datosBebidas);
         i.putExtra("datos",datos);
