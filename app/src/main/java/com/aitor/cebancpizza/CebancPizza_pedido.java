@@ -96,7 +96,4 @@ public class CebancPizza_pedido extends AppCompatActivity {
         else if(total >20)
             infoRegalo.setText("Regalo especial por su compra:\n\nPeluche Android");
     }
-    public void mensaje(String mensaje){
-        Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
-    }
 }
