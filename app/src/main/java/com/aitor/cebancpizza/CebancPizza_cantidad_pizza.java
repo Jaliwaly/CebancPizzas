@@ -50,7 +50,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             public void onClick(View view) {
                 cantidad++;
                 cant.setText(Integer.toString(cantidad));
-                total.setText("Total: " + Integer.toString(calculaTotal()));
+                total.setText("Total: " + Integer.toString(calculaTotal())+"€");
             }
         });
         menos.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 if(cantidad>1) {
                     cantidad--;
                     cant.setText(Integer.toString(cantidad));
-                    total.setText("Total: " + Integer.toString(calculaTotal()));
+                    total.setText("Total: " + Integer.toString(calculaTotal())+"€");
                 }else{
                     mensajeError();
                 }
@@ -81,7 +81,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                         prMasa=1;
                         break;
                 }
-                total.setText("Total: " + Integer.toString(calculaTotal()));
+                total.setText("Total: " + Integer.toString(calculaTotal())+"€");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -108,7 +108,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                         prTipo=5;
                         break;
                 }
-                total.setText("Total: " + Integer.toString(calculaTotal()));
+                total.setText("Total: " + Integer.toString(calculaTotal())+"€");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {

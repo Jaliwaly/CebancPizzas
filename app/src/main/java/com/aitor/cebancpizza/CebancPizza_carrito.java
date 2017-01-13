@@ -29,7 +29,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
     private List<String> carroPizzas = new ArrayList<String>();
     private List<String> carroBebidas = new ArrayList<String>();
     int pos, pos2, numCantidad, total = 0;
-    String ventana;
+    int ventana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
         spnPizzas = (Spinner) findViewById(R.id.spnPizzas);
         spnBebidas = (Spinner) findViewById(R.id.spnBebidas);
         extras = getIntent().getExtras();
-        ventana = extras.getString("requestCode");
-        if (ventana == "12345") {
+        ventana = extras.getInt("requestCode");
+        if (ventana == 12345) {
             pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
             for (int cont = 0; cont < pizzas.size(); cont++) {
                 carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
@@ -68,7 +68,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             });
         }
-        if (ventana == "123456") {
+        if (ventana == 123456) {
             bebidas = (ArrayList<InformacionBebidas>) extras.getSerializable("bebidas");
             for (int cont = 0; cont < bebidas.size(); cont++) {
                 carroBebidas.add(bebidas.get(cont).getTipo() + " X " + bebidas.get(cont).getCantidad());
