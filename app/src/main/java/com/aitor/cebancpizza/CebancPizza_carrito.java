@@ -76,7 +76,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
             }
             adaptador2 = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, carroBebidas);
             adaptador2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-            spnBebidas.setAdapter(adaptador);
+            spnBebidas.setAdapter(adaptador2);
             spnBebidas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -156,6 +156,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
         for(int cont=0;cont<pizzas.size();cont++) {
             carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
         }
+        adaptador.notifyDataSetChanged();
     }
 
     public void actuListaBebidas(){
@@ -163,6 +164,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
         for(int cont=0;cont<pizzas.size();cont++) {
             carroBebidas.add(bebidas.get(cont).getTipo() + " X " + bebidas.get(cont).getCantidad());
         }
+        adaptador2.notifyDataSetChanged();
     }
 
     public void eliminarPizza(){
@@ -178,6 +180,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
         pizzas.get(pos).setCantidad(numCantidad);
         mensaje("Se ha añadido una unidad mas de la pizza seleccionada");
         precioTot.setText(precioTot.getText()+ "\n"+Integer.toString(calculaTotal())+" €");
+        carroPizzas.set(pos,pizzas.get(pos).getTipo() + " tamaño " + pizzas.get(pos).getTamano() + " " + pizzas.get(pos).getMasa() + " X " + pizzas.get(pos).getCantidad());
+        adaptador.notifyDataSetChanged();
     }
     public void restarPizza(){
         if(pizzas.get(pos).getCantidad()>1) {
