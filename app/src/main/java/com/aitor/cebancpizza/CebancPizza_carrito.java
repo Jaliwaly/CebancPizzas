@@ -183,7 +183,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
     public void anadirPizza(){
         float precio = pizzas.get(pos).getTotal();
         numCantidad = pizzas.get(pos).getCantidad();
-        precio = precio / numCantidad;
+        precio /= numCantidad;
         numCantidad += 1;
         precio*=numCantidad;
         pizzas.get(pos).setTotal(precio);
