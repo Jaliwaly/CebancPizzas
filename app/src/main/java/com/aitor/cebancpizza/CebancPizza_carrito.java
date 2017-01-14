@@ -151,7 +151,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 atras();
             }
         });
-        precioTot.setText("Precio de tu pedido: " + String.format("%.02f",Float.toString(calculaTotal())) + " €");
+        precioTot.setText("Precio de tu pedido: " + String.format("%.02f",calculaTotal()) + " €");
     }
     public void atras(){
         Intent intent = new Intent();
@@ -180,7 +180,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
             carroPizzas.remove(pos);
             pizzas.remove(pos);
             mensaje("Se ha eliminado la pizza seleccionada de tu pedido");
-            precioTot.setText("Precio de tu pedido: " + String.format("%.02f",Float.toString(calculaTotal())) + " €");
+            precioTot.setText("Precio de tu pedido: " + String.format("%.02f",calculaTotal()) + " €");
             adaptador.notifyDataSetChanged();
     }
     public void anadirPizza(){
@@ -192,7 +192,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
         pizzas.get(pos).setTotal(precio);
         pizzas.get(pos).setCantidad(numCantidad);
         mensaje("Se ha añadido una unidad mas de la pizza seleccionada");
-        precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",Float.toString(calculaTotal())) +" €");
+        precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",calculaTotal()) +" €");
         carroPizzas.set(pos,pizzas.get(pos).getTipo() + " tamaño " + pizzas.get(pos).getTamano() + " " + pizzas.get(pos).getMasa() + " X " + pizzas.get(pos).getCantidad());
         adaptador.notifyDataSetChanged();
     }
@@ -205,7 +205,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
             precio*=numCantidad;
             pizzas.get(pos).setTotal(precio);
             pizzas.get(pos).setCantidad(numCantidad);
-            precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",Float.toString(calculaTotal())) +" €");
+            precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",calculaTotal()) +" €");
             carroPizzas.set(pos,pizzas.get(pos).getTipo() + " tamaño " + pizzas.get(pos).getTamano() + " " + pizzas.get(pos).getMasa() + " X " + pizzas.get(pos).getCantidad());
             adaptador.notifyDataSetChanged();
         }else{
@@ -216,7 +216,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
         carroBebidas.remove(pos2);
         bebidas.remove(pos2);
         mensaje("Se ha eliminado la bebida seleccionada de tu pedido");
-        precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",Float.toString(calculaTotal())) +" €");
+        precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",calculaTotal()) +" €");
         adaptador2.notifyDataSetChanged();
     }
     public void anadirBebida(){
@@ -228,7 +228,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
         bebidas.get(pos2).setTotal(precio);
         bebidas.get(pos2).setCantidad(numCantidad);
         mensaje("Se ha añadido una unidad mas de la bebida seleccionada");
-        precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",Float.toString(calculaTotal())) +" €");
+        precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",calculaTotal()) +" €");
         carroBebidas.set(pos2,bebidas.get(pos2).getTipo() + " X " + bebidas.get(pos2).getCantidad());
         adaptador2.notifyDataSetChanged();
     }
@@ -241,7 +241,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
             precio*=numCantidad;
             bebidas.get(pos2).setTotal(precio);
             bebidas.get(pos2).setCantidad(numCantidad);
-            precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",Float.toString(calculaTotal())) + " €");
+            precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",calculaTotal()) + " €");
             carroBebidas.set(pos2,bebidas.get(pos2).getTipo() + " X " + bebidas.get(pos2).getCantidad());
             adaptador2.notifyDataSetChanged();
         }else{
