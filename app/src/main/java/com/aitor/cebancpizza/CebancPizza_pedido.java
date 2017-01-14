@@ -84,7 +84,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
         for(int cont=0;cont<bebidas.size();cont++){
             factura +=bebidas.get(cont).getTipo()+"\n";
             cantidad+=bebidas.get(cont).getCantidad()+"\n";
-            precio+=bebidas.get(cont).getTotal()+"€\n";
+            precio+=String.format("%.02f", bebidas.get(cont).getTotal())+"€\n";
             total+=bebidas.get(cont).getTotal();
         }
         infoFactura.setText(factura);

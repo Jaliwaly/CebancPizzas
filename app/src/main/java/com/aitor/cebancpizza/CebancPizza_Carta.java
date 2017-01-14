@@ -39,7 +39,6 @@ public class CebancPizza_Carta extends AppCompatActivity{
         vegetal = (Button) findViewById(R.id.btnVegetal);
         tropical = (Button) findViewById(R.id.btnTropical);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
-        finishActivity(1232);
         carbonara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,5 +115,4 @@ public class CebancPizza_Carta extends AppCompatActivity{
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
         }
     }
-
 }

@@ -51,7 +51,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtCocacola.getText().toString()) > 0) {
-                        anadir("Coca Cola", Integer.parseInt(txtCocacola.getText().toString()),1.95);
+                        anadir("Coca Cola", Integer.parseInt(txtCocacola.getText().toString()),1.95f);
                         txtCocacola.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
@@ -68,7 +68,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtLimon.getText().toString()) > 0) {
-                        anadir("Limon Soda", Integer.parseInt(txtLimon.getText().toString()),1.50);
+                        anadir("Limon Soda", Integer.parseInt(txtLimon.getText().toString()),1.50f);
                         txtLimon.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
@@ -85,7 +85,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtNaranja.getText().toString()) > 0) {
-                        anadir("Fanta Naranja", Integer.parseInt(txtNaranja.getText().toString()),1.95);
+                        anadir("Fanta Naranja", Integer.parseInt(txtNaranja.getText().toString()),1.95f);
                         txtNaranja.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
@@ -102,7 +102,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtNestea.getText().toString()) > 0) {
-                        anadir("Nestea", Integer.parseInt(txtNestea.getText().toString()),1.85);
+                        anadir("Nestea", Integer.parseInt(txtNestea.getText().toString()),1.85f);
                         txtNestea.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
@@ -119,7 +119,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtCerveza.getText().toString()) > 0) {
-                        anadir("Cerveza Cruzcampo", Integer.parseInt(txtCerveza.getText().toString()),1.55);
+                        anadir("Cerveza Cruzcampo", Integer.parseInt(txtCerveza.getText().toString()),1.55f);
                         txtCerveza.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
@@ -136,7 +136,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             public void onClick(View v) {
                 try {
                     if (Integer.parseInt(txtAgua.getText().toString()) > 0) {
-                        anadir("Agua", Integer.parseInt(txtAgua.getText().toString()),1.35);
+                        anadir("Agua", Integer.parseInt(txtAgua.getText().toString()),1.35f);
                         txtAgua.setText("");
                         mensaje("Se ha añadido el pedido a la cesta");
                     } else {
@@ -167,7 +167,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             }
         });
     }
-    private void anadir(String tipo, int cantidad,double precio){
+    private void anadir(String tipo, int cantidad,float precio){
         int cant;
         boolean encontrado=false;
         elemento = new InformacionBebidas();
