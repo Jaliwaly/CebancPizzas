@@ -12,8 +12,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * Created by ingae on 06/01/2017.
- *
  * Clase que refleja el pedido y da la opción de realizar el pedido o salir de la aplicación
  */
 

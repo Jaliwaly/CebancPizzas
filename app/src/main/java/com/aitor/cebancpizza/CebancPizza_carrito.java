@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Jaliko on 06/01/2017.
- *
  * Clase para modificar los datos de la compra
  */
 

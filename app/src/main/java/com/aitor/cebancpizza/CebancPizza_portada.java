@@ -40,6 +40,7 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
 
         // Registrar escucha onMapReadyCallback
         mFirstMapFragment.getMapAsync(this);
+        //Los diferentes onClickListeners de los botones
         sig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,12 +61,12 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
         });
 
     }
-
+    //Metodo para lanzar la actividad del cliente
     public void lanzaCliente() {
         Intent i = new Intent(this, CebancPizza_Cliente.class);
         startActivity(i);
     }
-
+    //Metodo para poder realizar la llamada al numero introducido en el setData
     public void lanzaTlf() {
         Intent i = new Intent(Intent.ACTION_CALL);
         i.setData(Uri.parse("tel:943001100"));

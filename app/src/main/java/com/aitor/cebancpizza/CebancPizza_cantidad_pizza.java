@@ -16,8 +16,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * Created by ingae on 14/12/2016.
- *
  * Clase para añadir las especificaciones de las pizzas seleccionadas
  */
 

@@ -3,7 +3,9 @@ package com.aitor.cebancpizza;
 import java.io.Serializable;
 
 /**
- * Created by adminportatil on 09/12/2016.
+ *
+ * Esta clase guarda la información del cliente para posteriormente añadirla a un array-list con todos los datos.
+ * La clase esta compuesta por setters y getters para guardar y recoger la información
  */
 
 public class InformacionCliente implements Serializable{

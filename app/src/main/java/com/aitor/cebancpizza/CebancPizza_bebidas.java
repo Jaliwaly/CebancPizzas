@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * Created by Jaliko on 06/01/2017.
+ * Clase para escojer las bebidas del pedido
  */
 
 public class CebancPizza_bebidas extends AppCompatActivity{
@@ -46,6 +46,13 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         txtNestea = (EditText) findViewById(R.id.txtNest);
         txtCerveza = (EditText) findViewById(R.id.txtCerveza);
         txtAgua = (EditText) findViewById(R.id.txtAgua);
+
+        /**
+         * Los diferentes ClickListeners con sus metodos onClick de los botones, los cuales añaden
+         * al array-list de bebidas la cantidad y el nombre de la bebida introducida en sus
+         * respectivos EditText. (abajo explicamos su funcionamiento y el de todos los metodos)
+         */
+
         cocacola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,18 +155,29 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 }
             }
         });
+
+        /**
+         * Boton de la cesta que al hacer click ejecuta el metodo
+         * carrito
+         */
         cesta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 carrito();
             }
         });
+        /**
+         * Boton el cual nos ejecuta el metodo finalizarCompra
+         */
         finalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finalizarCompra();
             }
         });
+        /**
+         * Boton para salir de la aplicacion
+         */
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +185,10 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             }
         });
     }
+
+    /**
+     * Metodo que se utiliza para ir añadiendo al arraylist la informacion de cada bebida
+     */
     private void anadir(String tipo, int cantidad,float precio){
         int cant;
         boolean encontrado=false;
@@ -189,9 +211,15 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             bebidas.add(elemento);
         }
     }
+    //Función que escribe mensajes Toast
     public void mensaje(String mensaje){
         Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
     }
+
+    /**
+     * Metodo para pasar al ultimo layout con el resumen del pedido en el cual se pasa el array list
+     * datos el cual contiene los diferentes arraylist con todos los datos del pedido
+     */
     public void finalizarCompra(){
         Intent i = new Intent(this,CebancPizza_pedido.class);
         datosBebidas = new EstructuraArray("Bebidas",bebidas);
@@ -202,6 +230,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         startActivity(i);
         finish();
     }
+
+    /**
+     * Metodo para pasar al layout del carrito en el cual pasamos los arraylist de las pizzas y el
+     * de las bebidas junto con el requestCode.
+     */
     public void carrito(){
         int requestCode = 12344;
         Intent i = new Intent(this,CebancPizza_carrito.class);
@@ -210,6 +243,10 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         i.putExtra("requestCode",requestCode);
         startActivityForResult(i,requestCode);
     }
+
+    /**
+     *Metodo para recojer del carrito los dos arraylist
+     */
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==12344 && resultCode==RESULT_OK) {
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
