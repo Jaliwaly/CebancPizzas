@@ -58,6 +58,7 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
                 finish();
             }
         });
+
     }
 
     public void lanzaCliente() {
@@ -88,7 +89,8 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
         LatLng cebanc = new LatLng(43.30469411639206, -2.0168709754943848);
         googleMap.addMarker(new MarkerOptions()
                 .position(cebanc)
-                .title("CebancPizza"));
+                .title("CebancPizza"))
+                .setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marcador));
 
         CameraPosition cameraPosition = CameraPosition.builder()
                 .target(cebanc)
