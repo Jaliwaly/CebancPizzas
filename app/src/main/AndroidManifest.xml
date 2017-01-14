@@ -12,42 +12,49 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CebancPizza_Cliente">
+        <activity android:name=".CebancPizza_Cliente"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
 
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
-        <activity android:name=".CebancPizza_Carta">
+        <activity android:name=".CebancPizza_Carta"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
 
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
-        <activity android:name=".CebancPizza_cantidad_pizza">
+        <activity android:name=".CebancPizza_cantidad_pizza"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
 
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
-        <activity android:name=".CebancPizza_bebidas">
+        <activity android:name=".CebancPizza_bebidas"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
 
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
-        <activity android:name=".CebancPizza_pedido">
+        <activity android:name=".CebancPizza_pedido"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
 
                 <category android:name="android.intent.category.ALTERNATIVE" />
             </intent-filter>
         </activity>
-        <activity android:name=".CebancPizza_carrito">
+        <activity android:name=".CebancPizza_carrito"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
 
@@ -55,7 +62,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CebancPizza_portada">
+            android:name=".CebancPizza_portada"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
