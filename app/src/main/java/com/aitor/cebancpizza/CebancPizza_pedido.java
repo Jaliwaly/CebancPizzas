@@ -78,7 +78,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
         for(int cont=0;cont<pizzas.size();cont++){
             factura+=pizzas.get(cont).getTipo()+" "+pizzas.get(cont).getTamano()+" "+pizzas.get(cont).getMasa()+"\n";
             cantidad+=pizzas.get(cont).getCantidad()+"\n";
-            precio+=pizzas.get(cont).getTotal()+"€\n";
+            precio+=String.format("%.02f", pizzas.get(cont).getTotal())+"€\n";
             total+=pizzas.get(cont).getTotal();
         }
         for(int cont=0;cont<bebidas.size();cont++){
@@ -90,7 +90,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
         infoFactura.setText(factura);
         infoCantidad.setText(cantidad);
         infoPrecio.setText(precio);
-        infoTotal.setText("Total: "+String.valueOf(total)+"€");
+        infoTotal.setText("Total: "+String.format("%.02f",total)+"€");
         if(total>33)
             infoRegalo.setText("Regalos especiales por su compra:\n\nPeluche Android\nVale para comer en el comedor de Cebanc");
         else if(total >20)

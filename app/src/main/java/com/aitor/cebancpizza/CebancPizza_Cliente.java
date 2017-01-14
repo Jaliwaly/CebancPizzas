@@ -60,7 +60,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         finish();
     }
     private boolean ValidarDatos(){
-        if (nom.getText().toString().equals("") || dir.getText().toString().equals("") || tlf.getText().toString().equals("")){
+        if (nom.getText().toString().equals("") || dir.getText().toString().equals("") || tlf.getText().toString().equals("")||tlf.getText().length()!=9){
             return false;
         }else{
             return true;

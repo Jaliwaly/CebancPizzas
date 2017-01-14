@@ -111,7 +111,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         startActivityForResult(i,requestCode);
     }
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if ((requestCode==1234 && resultCode==RESULT_OK) || (resultCode==1233 && requestCode==RESULT_OK)) {
+        if (resultCode==RESULT_OK) {
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
         }
     }
