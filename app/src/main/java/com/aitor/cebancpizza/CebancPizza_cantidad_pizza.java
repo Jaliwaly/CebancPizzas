@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 /**
  * Created by ingae on 14/12/2016.
+ *
+ * Clase para añadir las especificaciones de las pizzas seleccionadas
  */
 
 public class CebancPizza_cantidad_pizza extends AppCompatActivity {
@@ -45,6 +47,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         extras = getIntent().getExtras();
         pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
 
+        //Añade al texto de cantidad uno
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +56,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 total.setText("Total: " + Integer.toString(calculaTotal())+"€");
             }
         });
+
+        //Resta al texto de cantidad uno, pero sin dejarle ser menor que uno
         menos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +70,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 }
             }
         });
+
+        //Creación del spinner para la masa de la pizza
         adaptador = ArrayAdapter.createFromResource(this, R.array.tipoMasa, android.R.layout.simple_spinner_item);
         masa = (Spinner) findViewById(R.id.spnMasa);
         adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -88,6 +95,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
 
             }
         });
+
+        //Creación del spinner para el tamaño de la pizza
         adaptador = ArrayAdapter.createFromResource(this, R.array.tamano, android.R.layout.simple_spinner_item);
         tamano = (Spinner) findViewById(R.id.spnTamano);
         adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -115,6 +124,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
 
             }
         });
+
+        //Boton para aceptar los cambios y pasar de nuevo a la carta de pizzas
         anadir = (Button) findViewById(R.id.btnAnadir);
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +142,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 finish();
             }
         });
+
+        //Boton para pasar de nuevo a la carta de pizzas sin realizar cambios
         cancelar=(Button) findViewById(R.id.btnCancelar);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,10 +154,12 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         });
     }
 
+    //Función que escribe mensajes Toast
     private void mensajeError(){
         Toast.makeText(this,"No puede pedir cero elementos",Toast.LENGTH_SHORT).show();
     }
 
+    //Función que calcula el precio de la pizza por su cantidad teniendo en cuenta el precio del tipo de pizza
     private int calculaTotal(){
         int suma = 0,precioTipo=0;
         switch(extras.getString("tipo")){

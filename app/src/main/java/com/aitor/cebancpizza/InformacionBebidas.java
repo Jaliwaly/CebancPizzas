@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * Created by ingae on 06/01/2017.
+ *
+ * Esta clase guarda la información de las bebidas para que sean guardadas en los arrays del pedido
+ * Tiene getters y setters para guardar y recoger la información
  */
 
 public class InformacionBebidas implements Serializable{

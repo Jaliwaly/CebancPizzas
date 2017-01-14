@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * Created by ingae on 05/01/2017.
+ *
+ * Esta clase guarda la información de las pizzas para que sean guardadas en los arrays del pedido
+ * Tiene getters y setters para guardar y recoger la información
  */
 
 public class InformacionPizza implements Serializable{

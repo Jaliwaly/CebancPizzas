@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * Created by Jaliko on 06/01/2017.
+ *
+ * Clase para modificar los datos de la compra
  */
 
 public class CebancPizza_carrito extends AppCompatActivity {
@@ -48,9 +50,13 @@ public class CebancPizza_carrito extends AppCompatActivity {
         extras = getIntent().getExtras();
         ventana = extras.getInt("requestCode");
         pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
+
+        //Se añade a un array la información para el spinner de las pizzas
         for (int cont = 0; cont < pizzas.size(); cont++) {
             carroPizzas.add(pizzas.get(cont).getTipo() + " tamaño " + pizzas.get(cont).getTamano() + " " + pizzas.get(cont).getMasa() + " X " + pizzas.get(cont).getCantidad());
         }
+
+        //Se inicializa el spinner y se le da añde los elementos
         adaptador = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, carroPizzas);
         adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spnPizzas.setAdapter(adaptador);
@@ -65,11 +71,17 @@ public class CebancPizza_carrito extends AppCompatActivity {
 
             }
         });
+
+        //Se controla que esta parte sólo puede hacerse cuando ha venido de la sección de bebidas
         if (ventana == 12344) {
             bebidas = (ArrayList<InformacionBebidas>) extras.getSerializable("bebidas");
+
+            //Se añade a un array la información para el spinner de las bebidas
             for (int cont = 0; cont < bebidas.size(); cont++) {
                 carroBebidas.add(bebidas.get(cont).getTipo() + " X " + bebidas.get(cont).getCantidad());
             }
+
+            //Se inicializa el spinner y se le da añde los elementos
             adaptador2 = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item, carroBebidas);
             adaptador2.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
             spnBebidas.setAdapter(adaptador2);
@@ -85,6 +97,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             });
         }
+
+        //Boton para borrar la pizza seleccionada en el spinner de pizzas
         btnSupPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,6 +109,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón para borrar la bebia seleccionada en el spinner de bebidas
         btnSupBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +121,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón para añadir una pizza más al elemento seleccionado en el spinner de pizzas
         btnMasPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +133,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón para restar una pizza al elemento seleccionado en el spinner de pizzas
         btnMenosPizza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,6 +145,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón para añadir una bebida más al elemento seleccionado en el spinner de bebidas
         btnMasBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,6 +157,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón para restar una bebida al elemento seleccionado en el spinner de bebidas
         btnMenosBebida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,14 +169,20 @@ public class CebancPizza_carrito extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón con el que se vuelve a la actividad anterior
         btnVolver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 atras();
             }
         });
+
+        //Se añade el precio actual de la cesta
         precioTot.setText("Precio de tu pedido: " + String.format("%.02f",calculaTotal()) + " €");
     }
+
+    //Función para devolver el resultado de los cambios de la cesta
     public void atras(){
         Intent intent = new Intent();
         intent.putExtra("pizza",pizzas);
@@ -160,6 +190,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
+
+    //Función para calcular el precio actual de la cesta
     private float calculaTotal(){
         float suma = 0;
         for(int cont=0;cont<pizzas.size();cont++) {
@@ -172,10 +204,13 @@ public class CebancPizza_carrito extends AppCompatActivity {
         }
         return suma;
     }
+
+    //Función para escribir mensajes
     public void mensaje(String mensaje){
         Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
     }
 
+    //Función para eliminar la pizza seleccionada en el spinner de pizzas
     public void eliminarPizza(){
             carroPizzas.remove(pos);
             pizzas.remove(pos);
@@ -183,6 +218,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
             precioTot.setText("Precio de tu pedido: " + String.format("%.02f",calculaTotal()) + " €");
             adaptador.notifyDataSetChanged();
     }
+
+    //Función para añadir una pizza más del tipo seleccionado
     public void anadirPizza(){
         float precio = pizzas.get(pos).getTotal();
         numCantidad = pizzas.get(pos).getCantidad();
@@ -196,6 +233,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
         carroPizzas.set(pos,pizzas.get(pos).getTipo() + " tamaño " + pizzas.get(pos).getTamano() + " " + pizzas.get(pos).getMasa() + " X " + pizzas.get(pos).getCantidad());
         adaptador.notifyDataSetChanged();
     }
+
+    //Función para restar una pizza del tipo seleccionado
     public void restarPizza(){
         if(pizzas.get(pos).getCantidad()>1) {
             float precio = pizzas.get(pos).getTotal();
@@ -212,6 +251,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
             eliminarPizza();
         }
     }
+
+    //Función para eliminar una bebida del spinner de bebidas
     public void eliminarBebida(){
         carroBebidas.remove(pos2);
         bebidas.remove(pos2);
@@ -219,6 +260,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
         precioTot.setText("Precio de tu pedido: "+ String.format("%.02f",calculaTotal()) +" €");
         adaptador2.notifyDataSetChanged();
     }
+
+    //Función para añadir una bebida más del tipo seleccionado
     public void anadirBebida(){
         float precio = bebidas.get(pos2).getTotal();
         numCantidad = bebidas.get(pos2).getCantidad();
@@ -232,6 +275,8 @@ public class CebancPizza_carrito extends AppCompatActivity {
         carroBebidas.set(pos2,bebidas.get(pos2).getTipo() + " X " + bebidas.get(pos2).getCantidad());
         adaptador2.notifyDataSetChanged();
     }
+
+    //Función para restar una bebida del tipo seleccionado
     public void restarBebida(){
         if(bebidas.get(pos2).getCantidad()>1) {
             float precio = bebidas.get(pos2).getTotal();

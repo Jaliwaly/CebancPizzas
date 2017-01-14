@@ -28,6 +28,8 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         tlf = (EditText) findViewById(R.id.tlf);
         sig = (Button) findViewById(R.id.siguientePantalla1);
         salir = (Button) findViewById(R.id.salirPantalla1);
+
+        //Botón para ir a la siguiente actividad
         sig.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +41,8 @@ public class CebancPizza_Cliente extends AppCompatActivity {
                 }
             }
         });
+
+        //Botón para salir de la aplicación
         salir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +50,8 @@ public class CebancPizza_Cliente extends AppCompatActivity {
             }
         });
     }
+
+    //Función que guarda la información del cliente en un array trás meterlo en un objeto de la clase EstructuraArray y lo pasa a la siguiente actividad
     public void siguienteP1(){
         inf = new InformacionCliente();
         inf.setNombre(nom.getText().toString());
@@ -59,6 +65,8 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    //Valida que los datos están llenos y si el teléfono tiene 9 dígitos
     private boolean ValidarDatos(){
         if (nom.getText().toString().equals("") || dir.getText().toString().equals("") || tlf.getText().toString().equals("")||tlf.getText().length()!=9){
             return false;
