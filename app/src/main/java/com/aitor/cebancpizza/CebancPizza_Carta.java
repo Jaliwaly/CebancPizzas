@@ -14,8 +14,6 @@ import java.util.ArrayList;
  */
 
 public class CebancPizza_Carta extends AppCompatActivity{
-    TextView textopru;
-    String texto;
     InformacionCliente client;
     Button nextBebidas, salir;
     Button carro;
@@ -27,12 +25,9 @@ public class CebancPizza_Carta extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_pizzas);
-        textopru = (TextView) findViewById(R.id.textView);
         Bundle extras = getIntent().getExtras();
         datosPizza = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
         client = (InformacionCliente) datosPizza.get(0).getObj();
-        texto = "Escoja su pizza, "+client.getNombre();
-        textopru.setText(texto);
         salir = (Button) findViewById(R.id.btnSalirPizzas);
         carro = (Button) findViewById(R.id.carrito);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
