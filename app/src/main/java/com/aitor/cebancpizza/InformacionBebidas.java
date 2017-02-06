@@ -11,13 +11,20 @@ import java.io.Serializable;
 
 public class InformacionBebidas implements Serializable{
     private String tipo;
-    private int cantidad;
+    private int cantidad, imagen;
     private float total;
+
+    InformacionBebidas(String nombre, int imagen){
+        this.tipo = nombre;
+        this.imagen = imagen;
+    }
 
     public void setTipo(String tipo){this.tipo=tipo;}
     public void setCantidad(int cantidad){this.cantidad=cantidad;}
     public void setTotal(float precio){this.total=precio;}
+    public void setImg(){this.imagen=imagen;}
     public String getTipo(){return tipo;}
     public int getCantidad(){return cantidad;}
     public float getTotal(){return total;}
+    public int getImg(){return imagen;}
 }

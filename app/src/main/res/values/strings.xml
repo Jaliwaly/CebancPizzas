@@ -46,4 +46,19 @@
     <string name="nestea">Nestea 1,85€</string>
     <string name="cerveza">Cerveza 1,55€</string>
     <string name="agua">Agua 1,35€</string>
+    <string-array name="pizzas">
+        <item>Carbonara</item>
+        <item>Vegetal</item>
+        <item>Barbacoa</item>
+        <item>4Quesos</item>
+        <item>Tropical</item>
+    </string-array>
+    <string-array name="bebidas">
+        <item>Agua</item>
+        <item>Cocacola</item>
+        <item>KasNaranja</item>
+        <item>Nestea</item>
+        <item>Cerveza</item>
+        <item>LimonSoda</item>
+    </string-array>
 </resources>

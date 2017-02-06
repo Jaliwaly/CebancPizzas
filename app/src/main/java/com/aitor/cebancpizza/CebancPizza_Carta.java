@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -16,10 +17,11 @@ public class CebancPizza_Carta extends AppCompatActivity{
     TextView textopru;
     String texto;
     InformacionCliente client;
-    Button carbonara, barbacoa, quesos, vegetal, tropical, nextBebidas, salir;
+    Button nextBebidas, salir;
     Button carro;
     ArrayList<EstructuraArray> datosPizza = new ArrayList();
     ArrayList<InformacionPizza> pizza = new ArrayList();
+    ListView lst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,47 +35,9 @@ public class CebancPizza_Carta extends AppCompatActivity{
         textopru.setText(texto);
         salir = (Button) findViewById(R.id.btnSalirPizzas);
         carro = (Button) findViewById(R.id.carrito);
-        carbonara=(Button) findViewById(R.id.btnCarbonara);
-        barbacoa = (Button) findViewById(R.id.btnBarbacoa);
-        quesos = (Button) findViewById(R.id.btnQuesos);
-        vegetal = (Button) findViewById(R.id.btnVegetal);
-        tropical = (Button) findViewById(R.id.btnTropical);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
-        /**
-         * Los diferentes ClickListeners con sus metodos onClick de los botones, llamando al metodo
-         * añadir que se le pasa el nombre de cada pizza  (abajo explicamos su funcionamiento y el
-         * de todos los metodos)
-         */
-        carbonara.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                anadir("Carbonara");
-            }
-        });
-        barbacoa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                anadir("Barbacoa");
-            }
-        });
-        quesos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                anadir("4 quesos");
-            }
-        });
-        vegetal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                anadir("Vegetal");
-            }
-        });
-        tropical.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                anadir("Tropical");
-            }
-        });
+        lst = (ListView) findViewById(R.id.lstP);
+        lst.setAdapter(new gridAdapter(this,true));
         nextBebidas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

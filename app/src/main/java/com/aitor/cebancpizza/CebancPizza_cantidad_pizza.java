@@ -27,7 +27,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private EditText cant;
     private Button mas, menos, anadir, cancelar;
     private String nomMasa, nomTamano;
-    InformacionPizza pizza = new InformacionPizza();
+    InformacionPizza pizza;
     ArrayList<InformacionPizza> pizzas;
     Bundle extras;
     int prMasa,prTipo;
@@ -51,7 +51,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             public void onClick(View view) {
                 cantidad++;
                 cant.setText(Integer.toString(cantidad));
-                total.setText("Total: " + Integer.toString(calculaTotal())+"€");
+                total.setText("Total: "+"€");
             }
         });
 
@@ -62,7 +62,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 if(cantidad>1) {
                     cantidad--;
                     cant.setText(Integer.toString(cantidad));
-                    total.setText("Total: " + Integer.toString(calculaTotal())+"€");
+                    total.setText("Total: "+"€");
                 }else{
                     mensajeError();
                 }
@@ -86,7 +86,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                         prMasa=1;
                         break;
                 }
-                total.setText("Total: " + Integer.toString(calculaTotal())+"€");
+                total.setText("Total: "+"€");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -115,7 +115,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                         prTipo=5;
                         break;
                 }
-                total.setText("Total: " + Integer.toString(calculaTotal())+"€");
+                total.setText("Total: " +"€");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -132,7 +132,6 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 pizza.setMasa(nomMasa);
                 pizza.setTamano(nomTamano);
                 pizza.setTipo(extras.getString("tipo"));
-                pizza.setTotal(calculaTotal());
                 pizzas.add(pizza);
                 Intent intent = new Intent();
                 intent.putExtra("pizza",pizzas);
@@ -155,29 +154,5 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     //Función que escribe mensajes Toast
     private void mensajeError(){
         Toast.makeText(this,"No puede pedir cero elementos",Toast.LENGTH_SHORT).show();
-    }
-
-    //Función que calcula el precio de la pizza por su cantidad teniendo en cuenta el precio del tipo de pizza
-    private int calculaTotal(){
-        int suma = 0,precioTipo=0;
-        switch(extras.getString("tipo")){
-            case "Carbonara":
-                precioTipo=10;
-                break;
-            case "Barbacoa":
-                precioTipo=10;
-                break;
-            case "4 quesos":
-                precioTipo=9;
-                break;
-            case "Vegetal":
-                precioTipo=12;
-                break;
-            case "Tropical":
-                precioTipo=12;
-                break;
-        }
-        suma = (precioTipo+prMasa+prTipo)*cantidad;
-        return suma;
     }
 }

@@ -3,6 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lstP">
+    </ListView>
+
     <Button
         android:id="@+id/carrito"
         android:layout_width="wrap_content"
@@ -29,131 +35,5 @@
         android:layout_weight="1"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" />
-
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <LinearLayout
-                android:id="@+id/activity_cebanc_pizza__pizzas"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/textView"
-                    android:layout_weight="1"
-                    android:textSize="35dp"
-                    android:textColor="@android:color/holo_blue_dark"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/carbonara"
-                    android:layout_weight="1"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/holo_blue_dark"
-                    android:paddingTop="10dp"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgCarbonara"
-                    android:src="@drawable/carbonara"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnCarbonara"
-                    android:text="@string/añadirP"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/barbacoa"
-                    android:layout_weight="1"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/holo_blue_dark"
-                    android:paddingTop="10dp"/>
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgBarbacoa"
-                    android:src="@drawable/barbacoa"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnBarbacoa"
-                    android:text="@string/añadirP"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/quesos"
-                    android:layout_weight="1"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/holo_blue_dark"
-                    android:paddingTop="10dp"/>
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgQuesos"
-                    android:src="@drawable/quesos"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnQuesos"
-                    android:text="@string/añadirP"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/vegetal"
-                    android:layout_weight="1"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/holo_blue_dark"
-                    android:paddingTop="10dp"/>
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgVegetal"
-                    android:src="@drawable/vegetal"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnVegetal"
-                    android:text="@string/añadirP"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/tropical"
-                    android:layout_weight="1"
-                    android:textSize="16dp"
-                    android:textColor="@android:color/holo_blue_dark"
-                    android:paddingTop="10dp"/>
-
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgTropical"
-                    android:src="@drawable/tropical"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnTropical"
-                    android:text="@string/añadirP"/>
-            </LinearLayout>
-        </ScrollView>
 
 </RelativeLayout>

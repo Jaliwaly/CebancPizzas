@@ -33,10 +33,7 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
         tlf = (Button) findViewById(R.id.btnTlf);
         salir = (Button) findViewById(R.id.btnSalir);
         mFirstMapFragment = FirstMapFragment.newInstance();
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.map, mFirstMapFragment)
-                .commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.map, mFirstMapFragment).commit();
 
         // Registrar escucha onMapReadyCallback
         mFirstMapFragment.getMapAsync(this);
