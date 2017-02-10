@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.ArrayList;
@@ -23,8 +24,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
     Button carro;
     ArrayList<EstructuraArray> datosPizza = new ArrayList();
     ArrayList<InformacionPizza> pizza = new ArrayList();
-    ArrayList<VistasArticulos> vaa = new ArrayList<VistasArticulos>();
-    ScrollView sc;
+    LinearLayout sc;
     CebancPizza_BD db;
     SQLiteDatabase sql;
 
@@ -35,22 +35,24 @@ public class CebancPizza_Carta extends AppCompatActivity{
         salir = (Button) findViewById(R.id.btnSalirPizzas);
         carro = (Button) findViewById(R.id.carrito);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
-        sc = (ScrollView) findViewById(R.id.scroll);
+        sc = (LinearLayout) findViewById(R.id.scroll);
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getReadableDatabase();
-
+        ArrayList<VistasArticulos> vaa = new ArrayList<VistasArticulos>();
         final Cursor c = sql.rawQuery("SELECT * FROM ARTICULOS",null);
         while(c.moveToNext()){
             vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
         for(final VistasArticulos vista:vaa){
-            if(vista.getTipo() == "PIZZA") {
+            //if(vista.getTipo() == "PIZZA") {
                 TextView tv = new TextView(getApplicationContext());
                 ImageView iv = new ImageView(getApplicationContext());
                 Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
-                iv.setId(vista.getImagen());
+                //iv.setId(vista.getImagen());
+                iv.setImageAlpha(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
+                btn.setText("AÑADIR");
                 sc.addView(tv);
                 sc.addView(iv);
                 sc.addView(btn);
@@ -60,7 +62,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
                         anadir(vista.getIdarticulo());
                     }
                 });
-            }
+            //}
         }
         nextBebidas.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package com.aitor.cebancpizza;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -46,9 +47,9 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
         sq = db.getReadableDatabase();
 
-        final Cursor c = sq.rawQuery("Select * from articulos",null);
+        final Cursor c = sq.rawQuery("SELECT * FROM ARTICULOS",null);
         while(c.moveToNext()){
-            bebidasVista.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(5),c.getFloat(3),c.getString(2)));
+            bebidasVista.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
         for(final VistasArticulos vista:bebidasVista){
             if(vista.getTipo() == "BEBIDA") {
@@ -56,8 +57,10 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 ImageView iv = new ImageView(getApplicationContext());
                 Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
-                iv.setId(vista.getImagen());
+                //iv.setId(vista.getImagen());
+                iv.setImageAlpha(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
+                btn.setText("AÑADIR");
                 svb.addView(tv);
                 svb.addView(iv);
                 svb.addView(btn);
