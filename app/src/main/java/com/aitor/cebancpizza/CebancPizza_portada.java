@@ -2,6 +2,7 @@ package com.aitor.cebancpizza;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -23,7 +24,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class CebancPizza_portada extends FragmentActivity implements OnMapReadyCallback {
     private FirstMapFragment mFirstMapFragment;
     private Button sig, tlf, salir;
-
+    CebancPizza_BD db;
+    SQLiteDatabase sq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,8 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
                 finish();
             }
         });
-
+        db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
+        sq = db.getWritableDatabase();
     }
     //Metodo para lanzar la actividad del cliente
     public void lanzaCliente() {

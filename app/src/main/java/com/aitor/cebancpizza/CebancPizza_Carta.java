@@ -1,11 +1,15 @@
 package com.aitor.cebancpizza;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.ArrayList;
 
@@ -19,20 +23,45 @@ public class CebancPizza_Carta extends AppCompatActivity{
     Button carro;
     ArrayList<EstructuraArray> datosPizza = new ArrayList();
     ArrayList<InformacionPizza> pizza = new ArrayList();
-    ListView lst;
+    ArrayList<VistasArticulos> vaa = new ArrayList<VistasArticulos>();
+    ScrollView sc;
+    CebancPizza_BD db;
+    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_pizzas);
-        Bundle extras = getIntent().getExtras();
-        datosPizza = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
-        client = (InformacionCliente) datosPizza.get(0).getObj();
         salir = (Button) findViewById(R.id.btnSalirPizzas);
         carro = (Button) findViewById(R.id.carrito);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
-        lst = (ListView) findViewById(R.id.lstP);
-        lst.setAdapter(new gridAdapter(this,true));
+        sc = (ScrollView) findViewById(R.id.scroll);
+        db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
+        sql = db.getReadableDatabase();
+
+        final Cursor c = sql.rawQuery("Select * from articulos",null);
+        while(c.moveToNext()){
+            vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(5),c.getFloat(3),c.getString(2)));
+        }
+        for(final VistasArticulos vista:vaa){
+            if(vista.getTipo() == "PIZZA") {
+                TextView tv = new TextView(getApplicationContext());
+                ImageView iv = new ImageView(getApplicationContext());
+                Button btn = new Button(getApplicationContext());
+                tv.setText(vista.getNombre());
+                iv.setId(vista.getImagen());
+                btn.setId(vista.getIdarticulo());
+                sc.addView(tv);
+                sc.addView(iv);
+                sc.addView(btn);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        anadir(vista.getIdarticulo());
+                    }
+                });
+            }
+        }
         nextBebidas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,11 +93,10 @@ public class CebancPizza_Carta extends AppCompatActivity{
      *Metodo para abrir la actividad cantidad pizza y en ella especificar los diferentes atriutos de
      * la pizza
      */
-    public void anadir(String tipo){
+    public void anadir(int articulo){
 
         Intent i = new Intent(this,CebancPizza_cantidad_pizza.class);
-        i.putExtra("pizza", pizza);
-        i.putExtra("tipo",tipo);
+        i.putExtra("tipo",articulo);
         startActivityForResult(i,1234);
     }
 
@@ -77,9 +105,6 @@ public class CebancPizza_Carta extends AppCompatActivity{
      */
     public void siguienteBebidas(){
         Intent i = new Intent(this,CebancPizza_bebidas.class);
-        EstructuraArray pizzas = new EstructuraArray("Pizzas",pizza);
-        datosPizza.add(pizzas);
-        i.putExtra("datos",datosPizza);
         startActivity(i);
         finish();
     }
@@ -89,7 +114,6 @@ public class CebancPizza_Carta extends AppCompatActivity{
     public void carrito(){
         int requestCode = 1233;
         Intent i = new Intent(this,CebancPizza_carrito.class);
-        i.putExtra("pizza", pizza);
         i.putExtra("requestCode",requestCode);
         startActivityForResult(i,requestCode);
     }
@@ -99,6 +123,49 @@ public class CebancPizza_Carta extends AppCompatActivity{
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (resultCode==RESULT_OK) {
             pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
+        }
+    }
+    class VistasArticulos {
+        int idarticulo, imagen;
+        String nombre, tipo;
+        float prVent;
+
+        VistasArticulos(int idarticulo, String nombre, int imagen, float prVent, String tipo){
+            this.idarticulo = idarticulo;
+            this.nombre = nombre;
+            this.imagen = imagen;
+            this.prVent = prVent;
+            this.tipo = tipo;
+        }
+        public void setIdArticulo(int idarticulo){
+            this.idarticulo = idarticulo;
+        }
+        public int getIdarticulo(){
+            return idarticulo;
+        }
+        public void setNombreArticulo(String nombre){
+            this.nombre = nombre;
+        }
+        public String getNombre(){
+            return nombre;
+        }
+        public void setImagen(int imagen){
+            this.imagen = imagen;
+        }
+        public int getImagen(){
+            return imagen;
+        }
+        public void setPrVent(float prVent){
+            this.prVent = prVent;
+        }
+        public float getPrVent(){
+            return prVent;
+        }
+        public void setTipo(String tipo){
+            this.tipo = tipo;
+        }
+        public String getTipo(){
+            return tipo;
         }
     }
 }

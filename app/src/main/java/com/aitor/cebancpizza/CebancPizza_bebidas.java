@@ -1,12 +1,17 @@
 package com.aitor.cebancpizza;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,21 +28,47 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     private ArrayList<EstructuraArray> datos;
     private ArrayList<InformacionPizza> pizza = new ArrayList();
     private EstructuraArray pizzas, datosBebidas;
-    private ListView lstB;
+    private ScrollView svb;
+    ArrayList<VistasArticulos> bebidasVista = new ArrayList<VistasArticulos>();
+    CebancPizza_BD db;
+    SQLiteDatabase sq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_bebidas);
         extras = getIntent().getExtras();
-        datos = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
-        pizza = (ArrayList<InformacionPizza>) datos.get(1).getObj();
         salir = (Button) findViewById(R.id.btnSalirBebidas);
         cesta = (Button) findViewById(R.id.carritoB);
         finalizar = (Button) findViewById(R.id.resumenPedido);
-        lstB = (ListView) findViewById(R.id.lstB);
-        lstB.setAdapter(new gridAdapter(this,false));
+        svb = (ScrollView) findViewById(R.id.svb);
 
+        db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
+        sq = db.getReadableDatabase();
+
+        final Cursor c = sq.rawQuery("Select * from articulos",null);
+        while(c.moveToNext()){
+            bebidasVista.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(5),c.getFloat(3),c.getString(2)));
+        }
+        for(final VistasArticulos vista:bebidasVista){
+            if(vista.getTipo() == "BEBIDA") {
+                TextView tv = new TextView(getApplicationContext());
+                ImageView iv = new ImageView(getApplicationContext());
+                Button btn = new Button(getApplicationContext());
+                tv.setText(vista.getNombre());
+                iv.setId(vista.getImagen());
+                btn.setId(vista.getIdarticulo());
+                svb.addView(tv);
+                svb.addView(iv);
+                svb.addView(btn);
+                btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+            }
+        }
         /**
          * Boton de la cesta que al hacer click ejecuta el metodo
          * carrito
@@ -67,32 +98,6 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             }
         });
     }
-
-    /**
-     * Metodo que se utiliza para ir añadiendo al arraylist la informacion de cada bebida
-     */
-    /*private void anadir(String tipo, int cantidad,float precio){
-        int cant;
-        boolean encontrado=false;
-        elemento = new InformacionBebidas();
-        for(int cont=0;cont<bebidas.size()&&encontrado==false;cont++){
-            elemento=bebidas.get(0);
-            if(elemento.getTipo().equals(tipo)){
-                cant=elemento.getCantidad();
-                elemento.setCantidad(cant+cantidad);
-                elemento.setTotal(elemento.getCantidad()*precio);
-                bebidas.set(cont,elemento);
-                encontrado = true;
-            }
-        }
-        if (encontrado == false) {
-            elemento = new InformacionBebidas();
-            elemento.setTipo(tipo);
-            elemento.setCantidad(cantidad);
-            elemento.setTotal(precio*cantidad);
-            bebidas.add(elemento);
-        }
-    }*/
     //Función que escribe mensajes Toast
     public void mensaje(String mensaje){
         Toast.makeText(this,mensaje,Toast.LENGTH_SHORT).show();
@@ -104,11 +109,6 @@ public class CebancPizza_bebidas extends AppCompatActivity{
      */
     public void finalizarCompra(){
         Intent i = new Intent(this,CebancPizza_pedido.class);
-        datosBebidas = new EstructuraArray("Bebidas",bebidas);
-        pizzas = new EstructuraArray("Pizzas",pizza);
-        datos.set(1,pizzas);
-        datos.add(datosBebidas);
-        i.putExtra("datos",datos);
         startActivity(i);
         finish();
     }
@@ -131,8 +131,51 @@ public class CebancPizza_bebidas extends AppCompatActivity{
      */
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode==12344 && resultCode==RESULT_OK) {
-            pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
-            bebidas=(ArrayList<InformacionBebidas>) data.getExtras().getSerializable("bebidas");
+
+        }
+    }
+
+    class VistasArticulos {
+        int idarticulo, imagen;
+        String nombre, tipo;
+        float prVent;
+
+        VistasArticulos(int idarticulo, String nombre, int imagen, float prVent, String tipo){
+            this.idarticulo = idarticulo;
+            this.nombre = nombre;
+            this.imagen = imagen;
+            this.prVent = prVent;
+            this.tipo = tipo;
+        }
+        public void setIdArticulo(int idarticulo){
+            this.idarticulo = idarticulo;
+        }
+        public int getIdarticulo(){
+            return idarticulo;
+        }
+        public void setNombreArticulo(String nombre){
+            this.nombre = nombre;
+        }
+        public String getNombre(){
+            return nombre;
+        }
+        public void setImagen(int imagen){
+            this.imagen = imagen;
+        }
+        public int getImagen(){
+            return imagen;
+        }
+        public void setPrVent(float prVent){
+            this.prVent = prVent;
+        }
+        public float getPrVent(){
+            return prVent;
+        }
+        public void setTipo(String tipo){
+            this.tipo = tipo;
+        }
+        public String getTipo(){
+            return tipo;
         }
     }
 }
