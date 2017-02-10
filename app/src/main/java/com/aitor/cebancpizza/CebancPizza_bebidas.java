@@ -47,7 +47,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
         sq = db.getReadableDatabase();
 
-        final Cursor c = sq.rawQuery("SELECT * FROM ARTICULOS",null);
+        final Cursor c = sq.rawQuery("SELECT * FROM ARTICULOS WHERE TIPO = 'BEBIDA'",null);
         while(c.moveToNext()){
             bebidasVista.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
@@ -57,8 +57,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 ImageView iv = new ImageView(getApplicationContext());
                 Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
-                //iv.setId(vista.getImagen());
-                iv.setImageAlpha(vista.getImagen());
+                iv.setId(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
                 btn.setText("AÑADIR");
                 svb.addView(tv);

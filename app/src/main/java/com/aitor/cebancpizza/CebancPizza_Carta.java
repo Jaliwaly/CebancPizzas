@@ -39,18 +39,16 @@ public class CebancPizza_Carta extends AppCompatActivity{
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getReadableDatabase();
         ArrayList<VistasArticulos> vaa = new ArrayList<VistasArticulos>();
-        final Cursor c = sql.rawQuery("SELECT * FROM ARTICULOS",null);
+        final Cursor c = sql.rawQuery("SELECT * FROM ARTICULOS WHERE TIPO = 'PIZZA'",null);
         while(c.moveToNext()){
             vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
         for(final VistasArticulos vista:vaa){
-            //if(vista.getTipo() == "PIZZA") {
                 TextView tv = new TextView(getApplicationContext());
                 ImageView iv = new ImageView(getApplicationContext());
                 Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
-                //iv.setId(vista.getImagen());
-                iv.setImageAlpha(vista.getImagen());
+                iv.setId(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
                 btn.setText("AÑADIR");
                 sc.addView(tv);
@@ -62,7 +60,6 @@ public class CebancPizza_Carta extends AppCompatActivity{
                         anadir(vista.getIdarticulo());
                     }
                 });
-            //}
         }
         nextBebidas.setOnClickListener(new View.OnClickListener() {
             @Override
