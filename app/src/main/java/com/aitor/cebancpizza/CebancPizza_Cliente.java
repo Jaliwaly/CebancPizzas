@@ -1,6 +1,8 @@
 package com.aitor.cebancpizza;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +13,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class CebancPizza_Cliente extends AppCompatActivity {
-    EditText nom = null;
-    EditText dir = null;
-    EditText tlf = null;
-    Button sig = null;
-    Button salir = null;
-    InformacionCliente inf;
-    ArrayList<EstructuraArray> datos = new ArrayList<EstructuraArray>();
+    EditText nom, dir,tlf;
+    Button sig, salir;
+    int numCli, numPedido;
+    boolean existe = false;
+    String nombre;
+    CebancPizza_BD db;
+    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +55,35 @@ public class CebancPizza_Cliente extends AppCompatActivity {
 
     //Función que guarda la información del cliente en un array trás meterlo en un objeto de la clase EstructuraArray y lo pasa a la siguiente actividad
     public void siguienteP1(){
-        inf = new InformacionCliente();
-        inf.setNombre(nom.getText().toString());
-        inf.setDireccion(dir.getText().toString());
-        inf.setTelefono(Integer.parseInt(tlf.getText().toString()));
-        EstructuraArray cliente = new EstructuraArray("Datos",inf);
-        datos.add(cliente);
+        nombre = nom.getText().toString();
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
+        sql = db.getReadableDatabase();
+        Cursor c = sql.rawQuery("SELECT NOMBRE FROM CLIENTES",null);
+        while(c.moveToNext() && existe == false){
+            if (nombre.equalsIgnoreCase(c.getString(0))){
+                sql.execSQL("UPDATE CLIENTES SET TELEFONO = '"+tlf.getText().toString()+"' , DIRECCION = '" + dir.getText().toString()+"' WHERE NOMBRE = '"+c.getString(0)+"'",null);
+                existe=true;
+            }
+        }
+        if(existe) {
+            c =sql.rawQuery("SELECT IDCLIENTE FROM CLIENTES WHERE NOMBRE = '"+nombre+"'",null);
+            c.moveToFirst();
+            numCli=c.getInt(0);
+        }else{
+            c =sql.rawQuery("SELECT MAX(*) FROM CLIENTES",null);
+            c.moveToFirst();
+            numCli=c.getInt(0)+1;
+            sql.execSQL("INSERT INTO CLIENTES VALUES("+numCli+",'"+dir.getText().toString()+"','"+tlf.getText().toString()+"')");
+        }
+
+        c =sql.rawQuery("SELECT NVL(MAX(*),0) FROM CLIENTES",null);
+        c.moveToFirst();
+        numPedido=c.getInt(0)+1;
+
+        sql.execSQL("INSERT INTO CABECERAS VALUES("+numPedido+","+numCli+",CURDATE())");
 
         Intent i = new Intent(this,CebancPizza_Carta.class);
-        i.putExtra("datos",datos);
+        i.putExtra("pedido",numPedido);
         startActivity(i);
         finish();
     }
