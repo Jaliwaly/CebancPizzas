@@ -46,6 +46,12 @@
     <string name="nestea">Nestea 1,85€</string>
     <string name="cerveza">Cerveza 1,55€</string>
     <string name="agua">Agua 1,35€</string>
+    <string name="clientes">Clientes</string>
+    <string name="articulos">Artículos</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="administrador">Pulse el botón de lo que desea administrar</string>
+    <string name="modificar">Modificar</string>
+    <string name="borrar">Borrar</string>
     <string-array name="pizzas">
         <item>Carbonara</item>
         <item>Vegetal</item>
