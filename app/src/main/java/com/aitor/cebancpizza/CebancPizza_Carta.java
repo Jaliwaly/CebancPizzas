@@ -36,12 +36,12 @@ public class CebancPizza_Carta extends AppCompatActivity{
         carro = (Button) findViewById(R.id.carrito);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
         sc = (ScrollView) findViewById(R.id.scroll);
-        db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getReadableDatabase();
 
-        final Cursor c = sql.rawQuery("Select * from articulos",null);
+        final Cursor c = sql.rawQuery("SELECT * FROM ARTICULOS",null);
         while(c.moveToNext()){
-            vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(5),c.getFloat(3),c.getString(2)));
+            vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
         for(final VistasArticulos vista:vaa){
             if(vista.getTipo() == "PIZZA") {

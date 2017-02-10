@@ -58,7 +58,7 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
                 finish();
             }
         });
-        db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sq = db.getWritableDatabase();
     }
     //Metodo para lanzar la actividad del cliente
