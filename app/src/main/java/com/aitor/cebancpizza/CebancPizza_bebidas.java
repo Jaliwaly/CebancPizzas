@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -29,8 +30,8 @@ public class CebancPizza_bebidas extends AppCompatActivity{
     private ArrayList<EstructuraArray> datos;
     private ArrayList<InformacionPizza> pizza = new ArrayList();
     private EstructuraArray pizzas, datosBebidas;
-    private ScrollView svb;
-    ArrayList<VistasArticulos> bebidasVista = new ArrayList<VistasArticulos>();
+    private LinearLayout svb;
+    ArrayList<VistasArticulosB> bebidasVista = new ArrayList<VistasArticulosB>();
     CebancPizza_BD db;
     SQLiteDatabase sq;
 
@@ -42,22 +43,21 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         salir = (Button) findViewById(R.id.btnSalirBebidas);
         cesta = (Button) findViewById(R.id.carritoB);
         finalizar = (Button) findViewById(R.id.resumenPedido);
-        svb = (ScrollView) findViewById(R.id.svb);
+        svb = (LinearLayout) findViewById(R.id.svb);
 
-        db = new CebancPizza_BD(this,"CebancPizza.db",null,1);
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sq = db.getReadableDatabase();
 
         final Cursor c = sq.rawQuery("SELECT * FROM ARTICULOS WHERE TIPO = 'BEBIDA'",null);
         while(c.moveToNext()){
-            bebidasVista.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
+            bebidasVista.add(new VistasArticulosB(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
-        for(final VistasArticulos vista:bebidasVista){
-            if(vista.getTipo() == "BEBIDA") {
+        for(final VistasArticulosB vista:bebidasVista){
                 TextView tv = new TextView(getApplicationContext());
                 ImageView iv = new ImageView(getApplicationContext());
                 Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
-                iv.setId(vista.getImagen());
+                iv.setImageResource(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
                 btn.setText("AÑADIR");
                 svb.addView(tv);
@@ -69,7 +69,6 @@ public class CebancPizza_bebidas extends AppCompatActivity{
 
                     }
                 });
-            }
         }
         /**
          * Boton de la cesta que al hacer click ejecuta el metodo
@@ -137,12 +136,12 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         }
     }
 
-    class VistasArticulos {
+    class VistasArticulosB {
         int idarticulo, imagen;
         String nombre, tipo;
         float prVent;
 
-        VistasArticulos(int idarticulo, String nombre, int imagen, float prVent, String tipo){
+        VistasArticulosB(int idarticulo, String nombre, int imagen, float prVent, String tipo){
             this.idarticulo = idarticulo;
             this.nombre = nombre;
             this.imagen = imagen;

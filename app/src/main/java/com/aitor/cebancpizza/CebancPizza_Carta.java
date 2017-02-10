@@ -48,7 +48,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
                 ImageView iv = new ImageView(getApplicationContext());
                 Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
-                iv.setId(vista.getImagen());
+                iv.setImageResource(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
                 btn.setText("AÑADIR");
                 sc.addView(tv);
