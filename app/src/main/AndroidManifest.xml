@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".CebancPizza_cantidad_pizza"
-            android:theme="@style/Theme.AppCompat.Dialog"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />

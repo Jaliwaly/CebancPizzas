@@ -17,10 +17,11 @@ import java.util.ArrayList;
 
 public class CebancPizza_clientes extends AppCompatActivity {
 
-    Button modificar, borrar, salir;
+    Button borrar, salir;
     private ListView lista;
     private ArrayAdapter<String> adapter;
-    private ArrayList<String> clientes;
+    private ArrayList<String> clientes = new ArrayList<String>();
+    private ArrayList<Integer> idCliente = new ArrayList<Integer>();
     CebancPizza_BD db;
     SQLiteDatabase sql;
 
@@ -40,7 +41,8 @@ public class CebancPizza_clientes extends AppCompatActivity {
         sql = db.getWritableDatabase();
         Cursor c = sql.rawQuery("SELECT IDCLIENTE, NOMBRE FROM CLIENTES",null);
         while(c.moveToNext()){
-            clientes.add(c.getInt(0),c.getInt(0)+" - "+c.getString(1));
+            idCliente.add(c.getInt(0));
+            clientes.add(c.getInt(0)+" - "+c.getString(1));
             adapter.notifyDataSetChanged();
         }
 
@@ -58,8 +60,9 @@ public class CebancPizza_clientes extends AppCompatActivity {
         });
     }
     private void eliminar(int pos){
-        Cursor c = sql.rawQuery("DELETE FROM CLIENTES WHERE IDCLIENTE = "+clientes.get(pos),null);
+        sql.execSQL("DELETE FROM CLIENTES WHERE IDCLIENTE = "+idCliente.get(pos));
         clientes.remove(pos);
+        idCliente.remove(pos);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
         adapter.notifyDataSetChanged();
     }

@@ -108,6 +108,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
      */
     public void siguienteBebidas(){
         Intent i = new Intent(this,CebancPizza_bebidas.class);
+        i.putExtra("pedido",cabecera);
         startActivity(i);
         finish();
     }

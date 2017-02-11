@@ -25,12 +25,10 @@ import java.util.ArrayList;
 public class CebancPizza_bebidas extends AppCompatActivity{
     private Button finalizar, cesta, salir;
     private ArrayList<InformacionBebidas> bebidas = new ArrayList();
-    private InformacionBebidas elemento;
     private Bundle extras;
-    private ArrayList<EstructuraArray> datos;
     private ArrayList<InformacionPizza> pizza = new ArrayList();
-    private EstructuraArray pizzas, datosBebidas;
     private LinearLayout svb;
+    private int cabecera;
     ArrayList<VistasArticulosB> bebidasVista = new ArrayList<VistasArticulosB>();
     CebancPizza_BD db;
     SQLiteDatabase sq;
@@ -40,6 +38,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_bebidas);
         extras = getIntent().getExtras();
+        cabecera = extras.getInt("pedido");
         salir = (Button) findViewById(R.id.btnSalirBebidas);
         cesta = (Button) findViewById(R.id.carritoB);
         finalizar = (Button) findViewById(R.id.resumenPedido);
