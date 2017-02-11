@@ -3,6 +3,7 @@ package com.aitor.cebancpizza;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -54,18 +55,26 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         for(final VistasArticulosB vista:bebidasVista){
                 TextView tv = new TextView(getApplicationContext());
                 ImageView iv = new ImageView(getApplicationContext());
-                Button btn = new Button(getApplicationContext());
+                final EditText et = new EditText(getApplicationContext());
+                final Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
+                tv.setTextColor((getResources().getColor(R.color.black)));
                 iv.setImageResource(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
+                et.setText(0);
                 btn.setText("AÑADIR");
                 svb.addView(tv);
                 svb.addView(iv);
+                svb.addView(et);
                 svb.addView(btn);
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        if(et.getText().toString().equals("")){
+                            mensaje("Escoja una cantidad");
+                        }else{
+                            pedirBebida(Integer.parseInt(et.getText().toString()), btn.getId());
+                        }
                     }
                 });
         }
@@ -133,6 +142,15 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         if (requestCode==12344 && resultCode==RESULT_OK) {
 
         }
+    }
+
+    public void pedirBebida(int cantidad, int id){
+        int linea;
+        Cursor c = sq.rawQuery("SELECT MAX(IDLINEA) FROM LINEAS",null);
+        c.moveToFirst();
+        linea=c.getInt(0) + 1;
+        sq.execSQL("INSERT INTO LINEAS VALUES("+linea+","+cabecera+","+id+","+cantidad+")");
+        mensaje("Bebida añadida");
     }
 
     class VistasArticulosB {
