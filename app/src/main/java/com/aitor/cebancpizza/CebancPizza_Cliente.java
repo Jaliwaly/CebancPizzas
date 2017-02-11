@@ -55,7 +55,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
     public void siguienteP1(){
         nombre = nom.getText().toString();
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
-        sql = db.getReadableDatabase();
+        sql = db.getWritableDatabase();
         Cursor c = sql.rawQuery("SELECT NOMBRE FROM CLIENTES",null);
         while(c.moveToNext() && existe == false){
             if (nombre.equalsIgnoreCase(c.getString(0))){
@@ -65,20 +65,20 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         }
         if(existe) {
             c =sql.rawQuery("SELECT IDCLIENTE FROM CLIENTES WHERE NOMBRE = '"+nombre+"'",null);
-            c.moveToFirst();
+            c.moveToNext();
             numCli=c.getInt(0);
         }else{
-            c =sql.rawQuery("SELECT MAX(*) FROM CLIENTES",null);
-            c.moveToFirst();
+            c =sql.rawQuery("SELECT MAX(IDCLIENTE) FROM CLIENTES",null);
+            c.moveToNext();
             numCli=c.getInt(0)+1;
-            sql.execSQL("INSERT INTO CLIENTES VALUES("+numCli+",'"+dir.getText().toString()+"','"+tlf.getText().toString()+"')");
+            sql.execSQL("INSERT INTO CLIENTES VALUES("+numCli+",'"+nom.getText().toString()+"','"+dir.getText().toString()+"','"+tlf.getText().toString()+"')");
         }
 
-        c =sql.rawQuery("SELECT NVL(MAX(*),0) FROM CABECERAS",null);
-        c.moveToFirst();
+        c =sql.rawQuery("SELECT IFNULL(MAX(IDCABECERA),0) FROM CABECERAS",null);
+        c.moveToNext();
         numPedido=c.getInt(0)+1;
 
-        sql.execSQL("INSERT INTO CABECERAS VALUES("+numPedido+","+numCli+",CURDATE())");
+        sql.execSQL("INSERT INTO CABECERAS VALUES("+numPedido+","+numCli+",SYSDATE)");
 
         Intent i = new Intent(this,CebancPizza_Carta.class);
         i.putExtra("pedido",numPedido);
