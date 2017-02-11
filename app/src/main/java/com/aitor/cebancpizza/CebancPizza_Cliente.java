@@ -59,8 +59,9 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         Cursor c = sql.rawQuery("SELECT NOMBRE FROM CLIENTES",null);
         while(c.moveToNext() && existe == false){
             if (nombre.equalsIgnoreCase(c.getString(0))){
-                sql.execSQL("UPDATE CLIENTES SET TELEFONO = '"+ Integer.parseInt(tlf.getText().toString()) +"' , DIRECCION = '" + dir.getText().toString()+"' WHERE NOMBRE = '"+c.getString(0)+"'",null);
+                sql.execSQL("UPDATE CLIENTES SET TELEFONO = "+ Integer.parseInt(tlf.getText().toString()) +" , DIRECCION = '" + dir.getText().toString()+"' WHERE NOMBRE = '"+nombre+"'");
                 existe=true;
+                mensaje("Tu información ha sido actualizada");
             }
         }
         if(existe) {
@@ -72,13 +73,14 @@ public class CebancPizza_Cliente extends AppCompatActivity {
             c.moveToNext();
             numCli=c.getInt(0)+1;
             sql.execSQL("INSERT INTO CLIENTES VALUES("+numCli+",'"+nom.getText().toString()+"','"+dir.getText().toString()+"','"+tlf.getText().toString()+"')");
+            mensaje("Tu información se ha guardado correctamente");
         }
 
         c =sql.rawQuery("SELECT IFNULL(MAX(IDCABECERA),0) FROM CABECERAS",null);
         c.moveToNext();
         numPedido=c.getInt(0)+1;
 
-        sql.execSQL("INSERT INTO CABECERAS VALUES("+numPedido+","+numCli+",SYSDATE)");
+        sql.execSQL("INSERT INTO CABECERAS VALUES("+numPedido+","+numCli+",DATETIME())");
 
         Intent i = new Intent(this,CebancPizza_Carta.class);
         i.putExtra("pedido",numPedido);
@@ -93,5 +95,8 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         }else{
             return true;
         }
+    }
+    private void mensaje(String msj){
+        Toast.makeText(this,msj,Toast.LENGTH_LONG).show();
     }
 }
