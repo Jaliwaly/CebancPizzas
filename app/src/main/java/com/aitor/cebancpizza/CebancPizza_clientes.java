@@ -1,5 +1,7 @@
 package com.aitor.cebancpizza;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,6 +21,8 @@ public class CebancPizza_clientes extends AppCompatActivity {
     private ListView lista;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> clientes;
+    CebancPizza_BD db;
+    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,14 @@ public class CebancPizza_clientes extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
         lista.setAdapter(adapter);
+
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
+        sql = db.getWritableDatabase();
+        Cursor c = sql.rawQuery("SELECT IDCLIENTE, NOMBRE FROM CLIENTES",null);
+        while(c.moveToNext()){
+            clientes.add(c.getInt(0),c.getInt(0)+" - "+c.getString(1));
+            adapter.notifyDataSetChanged();
+        }
 
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +58,7 @@ public class CebancPizza_clientes extends AppCompatActivity {
         });
     }
     private void eliminar(int pos){
+        Cursor c = sql.rawQuery("DELETE FROM CLIENTES WHERE IDCLIENTE = "+clientes.get(pos),null);
         clientes.remove(pos);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
         adapter.notifyDataSetChanged();

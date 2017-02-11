@@ -137,6 +137,36 @@ public class CebancPizza_BD extends SQLiteOpenHelper {
         registros.put("PRVENT",1.35);
         registros.put("IMAGEN",R.drawable.b1);
         db.insert("ARTICULOS",null,registros);
+
+        registros = new ContentValues();
+        registros.put("IDTAMANO",1);
+        registros.put("DESCRIPCION","INDIVIDUAL");
+        registros.put("PRECIO",0);
+        db.insert("TAMANO",null,registros);
+
+        registros = new ContentValues();
+        registros.put("IDTAMANO",2);
+        registros.put("DESCRIPCION","MEDIANA");
+        registros.put("PRECIO",2);
+        db.insert("TAMANO",null,registros);
+
+        registros = new ContentValues();
+        registros.put("IDTAMANO",3);
+        registros.put("DESCRIPCION","FAMILIAR");
+        registros.put("PRECIO",5);
+        db.insert("TAMANO",null,registros);
+
+        registros = new ContentValues();
+        registros.put("IDMASA",1);
+        registros.put("DESCRIPCION","FINA");
+        registros.put("PRECIO",0);
+        db.insert("MASA",null,registros);
+
+        registros = new ContentValues();
+        registros.put("IDMASA",2);
+        registros.put("DESCRIPCION","NORMAL");
+        registros.put("PRECIO",1);
+        db.insert("MASA",null,registros);
     }
 
 }
