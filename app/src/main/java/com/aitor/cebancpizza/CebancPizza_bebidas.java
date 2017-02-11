@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,7 +48,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
         svb = (LinearLayout) findViewById(R.id.svb);
 
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
-        sq = db.getReadableDatabase();
+        sq = db.getWritableDatabase();
 
         final Cursor c = sq.rawQuery("SELECT * FROM ARTICULOS WHERE TIPO = 'BEBIDA'",null);
         while(c.moveToNext()){
@@ -60,9 +62,12 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 tv.setText(vista.getNombre());
                 tv.setTextColor((getResources().getColor(R.color.black)));
                 iv.setImageResource(vista.getImagen());
+                et.setTextColor((getResources().getColor(R.color.black)));
+                et.setLayoutParams(new LinearLayout.LayoutParams(100,ViewGroup.LayoutParams.WRAP_CONTENT));
+                et.setInputType(InputType.TYPE_CLASS_NUMBER);
                 btn.setId(vista.getIdarticulo());
-                et.setText("0");
                 btn.setText("AÑADIR");
+                btn.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
                 svb.addView(tv);
                 svb.addView(iv);
                 svb.addView(et);
