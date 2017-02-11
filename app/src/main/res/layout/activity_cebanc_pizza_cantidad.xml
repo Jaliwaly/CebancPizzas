@@ -71,8 +71,9 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:id="@+id/spnMasa"
-        android:background="@android:color/white"
-        android:layout_weight="0.09" />
+        android:background="@color/cast_intro_overlay_button_background_color"
+        android:layout_weight="0.09"
+        android:popupBackground="@color/cast_intro_overlay_button_background_color" />
 
     <Spinner
         android:layout_margin="5dp"
@@ -81,8 +82,9 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:id="@+id/spnTamano"
-        android:background="@android:color/white"
-        android:layout_weight="0.09" />
+        android:background="@color/cast_intro_overlay_button_background_color"
+        android:layout_weight="0.09"
+        android:popupBackground="@color/cast_intro_overlay_button_background_color" />
 
     <TextView
         android:text="@string/pvp"

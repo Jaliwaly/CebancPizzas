@@ -24,21 +24,18 @@ import java.util.ArrayList;
 
 public class CebancPizza_cantidad_pizza extends AppCompatActivity {
     private Spinner sptamano,spmasa;
-    private ArrayAdapter<String> masa;
-    private ArrayAdapter<String> tamano;
-    private ArrayList<Integer> prMasa, prTamano;
-
-    private int cantidad=1;
+    private ArrayAdapter<String> adaptadorMasa, adaptadorTamano;
+    private ArrayList<String> masa = new ArrayList<String>();
+    private ArrayList<String> tamano = new ArrayList<String>();
+    private ArrayList<Integer> prMasa = new ArrayList<Integer>(), prTamano = new ArrayList<Integer>();
     private TextView total;
     private EditText cant;
     private Button mas, menos, anadir, cancelar;
-    private String nomMasa, nomTamano;
     Bundle extras;
-    int prTipo,cabecera, idPizza;
+    int cabecera, idPizza, cantidad=1, prPizza, posMasa, posTamano;
     CebancPizza_BD db;
     SQLiteDatabase sql;
     Cursor c;
-    float precio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             public void onClick(View view) {
                 cantidad++;
                 cant.setText(Integer.toString(cantidad));
-                total.setText("Total: "+"€");
+                total.setText("Total: "+calculaTotal()+"€");
             }
         });
 
@@ -70,9 +67,9 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 if(cantidad>1) {
                     cantidad--;
                     cant.setText(Integer.toString(cantidad));
-                    total.setText("Total: "+"€");
+                    total.setText("Total: "+calculaTotal()+"€");
                 }else{
-                    mensajeError();
+                    mensaje("No puede pedir cero elementos");
                 }
             }
         });
@@ -80,20 +77,31 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getWritableDatabase();
 
+        c=sql.rawQuery("SELECT PRVENT FROM ARTICULOS WHERE IDARTICULO = "+idPizza,null);
+        c.moveToFirst();
+        prPizza = c.getInt(0);
+
         //Creación del spinner para la masa de la pizza
-        c = sql.rawQuery("SELECT MASA.DESCRIPCION, MASA.PRECIO,TAMANO.DESCRIPCION, TAMANO.PRECIO FROM MASA, TAMANO",null);
+        c = sql.rawQuery("SELECT DESCRIPCION, PRECIO FROM MASA",null);
         while(c.moveToNext()){
             masa.add(c.getString(0)+" - "+c.getInt(1));
-            tamano.add(c.getString(2)+" - "+c.getInt(3));
             prMasa.add(c.getInt(1));
-            prTamano.add(c.getInt(3));
         }
 
+        c = sql.rawQuery("SELECT DESCRIPCION, PRECIO FROM TAMANO",null);
+        while(c.moveToNext()){
+            tamano.add(c.getString(0)+" - "+c.getInt(1));
+            prTamano.add(c.getInt(1));
+        }
+
+        adaptadorMasa = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, masa);
+        adaptadorTamano = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, tamano);
         spmasa = (Spinner) findViewById(R.id.spnMasa);
-        spmasa.setAdapter(masa);
+        spmasa.setAdapter(adaptadorMasa);
         spmasa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
-
+                posMasa=position;
+                total.setText("Total: "+calculaTotal()+"€");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -103,24 +111,11 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
 
         //Creación del spinner para el tamaño de la pizza
         sptamano = (Spinner) findViewById(R.id.spnTamano);
-        sptamano.setAdapter(tamano);
+        sptamano.setAdapter(adaptadorTamano);
         sptamano.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
-                switch (position) {
-                    case 0:
-                        nomTamano="Individual";
-                        prTipo=0;
-                        break;
-                    case 1:
-                        nomTamano="Mediana";
-                        prTipo=2;
-                        break;
-                    case 2:
-                        nomTamano="Familiar";
-                        prTipo=5;
-                        break;
-                }
-                total.setText("Total: " +"€");
+                posTamano=position;
+                total.setText("Total: "+calculaTotal()+"€");
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -133,14 +128,13 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        //        pizza.setCantidad(cantidad);
-          //      pizza.setMasa(nomMasa);
-            //    pizza.setTamano(nomTamano);
-              //  pizza.setTipo(extras.getString("tipo"));
-          //      pizzas.add(pizza);
-                Intent intent = new Intent();
-            //    intent.putExtra("pizza",pizzas);
-                setResult(RESULT_OK, intent);
+                int linea;
+                c=sql.rawQuery("SELECT MAX(IDLINEA) FROM LINEAS",null);
+                c.moveToFirst();
+                linea=c.getInt(0) + 1;
+                sql.execSQL("INSERT INTO LINEAS VALUES("+linea+","+cabecera+","+idPizza+","+cantidad+")");
+                sql.execSQL("INSERT INTO PIZZA_PEDIDA VALUES("+linea+","+posMasa+","+posTamano+")");
+                mensaje("Pizza añadida");
                 finish();
             }
         });
@@ -150,14 +144,18 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_CANCELED);
                 finish();
             }
         });
     }
 
+    private String calculaTotal(){
+        float total=(prPizza+prTamano.get(posTamano)+prMasa.get(posMasa))*cantidad;
+        return Float.toString(total);
+    }
+
     //Función que escribe mensajes Toast
-    private void mensajeError(){
-        Toast.makeText(this,"No puede pedir cero elementos",Toast.LENGTH_SHORT).show();
+    private void mensaje(String msj){
+        Toast.makeText(this,msj,Toast.LENGTH_SHORT).show();
     }
 }
