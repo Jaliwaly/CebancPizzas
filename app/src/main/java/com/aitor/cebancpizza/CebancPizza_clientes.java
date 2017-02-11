@@ -5,9 +5,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class CebancPizza_clientes extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> clientes = new ArrayList<String>();
     private ArrayList<Integer> idCliente = new ArrayList<Integer>();
+    private int posicion;
     CebancPizza_BD db;
     SQLiteDatabase sql;
 
@@ -37,6 +40,13 @@ public class CebancPizza_clientes extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
         lista.setAdapter(adapter);
 
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                posicion=position;
+            }
+        });
+
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getWritableDatabase();
         Cursor c = sql.rawQuery("SELECT IDCLIENTE, NOMBRE FROM CLIENTES",null);
@@ -49,7 +59,7 @@ public class CebancPizza_clientes extends AppCompatActivity {
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminar(lista.getSelectedItemPosition());
+                eliminar(posicion);
             }
         });
         salir.setOnClickListener(new View.OnClickListener() {
@@ -60,10 +70,13 @@ public class CebancPizza_clientes extends AppCompatActivity {
         });
     }
     private void eliminar(int pos){
-        sql.execSQL("DELETE FROM CLIENTES WHERE IDCLIENTE = "+idCliente.get(pos));
-        clientes.remove(pos);
-        idCliente.remove(pos);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
-        adapter.notifyDataSetChanged();
+        try{
+            sql.execSQL("DELETE FROM CLIENTES WHERE IDCLIENTE = " + idCliente.get(pos));
+            clientes.remove(pos);
+            idCliente.remove(pos);
+            adapter.notifyDataSetChanged();
+        }catch (IndexOutOfBoundsException e){
+            Toast.makeText(this,"No hay elementos seleccionados",Toast.LENGTH_SHORT).show();
+        }
     }
 }
