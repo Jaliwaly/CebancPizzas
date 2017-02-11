@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CebancPizza_portada extends FragmentActivity implements OnMapReadyCallback {
     private FirstMapFragment mFirstMapFragment;
-    private Button sig, tlf, salir;
+    private Button sig, tlf, salir, admin;
     CebancPizza_BD db;
     SQLiteDatabase sq;
 
@@ -34,6 +34,7 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
         sig = (Button) findViewById(R.id.btnSDatos);
         tlf = (Button) findViewById(R.id.btnTlf);
         salir = (Button) findViewById(R.id.btnSalir);
+        admin = (Button) findViewById(R.id.abreLog);
         mFirstMapFragment = FirstMapFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.map, mFirstMapFragment).commit();
 
@@ -58,6 +59,13 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
                 finish();
             }
         });
+        admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openAdmin();
+            }
+        });
+
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sq = db.getWritableDatabase();
     }
@@ -80,6 +88,10 @@ public class CebancPizza_portada extends FragmentActivity implements OnMapReadyC
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        startActivity(i);
+    }
+    public void openAdmin(){
+        Intent i = new Intent(this,CebancPizza_sesionAdmin.class);
         startActivity(i);
     }
 

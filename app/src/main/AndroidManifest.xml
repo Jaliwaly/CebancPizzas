@@ -30,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CebancPizza_cantidad_pizza"
+            android:theme="@style/Theme.AppCompat.Dialog"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />
@@ -95,6 +96,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".CebancPizza_pedidos"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.ASSIST" />
+
+                <category android:name="android.intent.category.ALTERNATIVE" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".CebancPizza_sesionAdmin"
+            android:theme="@style/Theme.AppCompat.Dialog"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.ASSIST" />

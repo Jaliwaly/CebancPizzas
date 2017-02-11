@@ -52,6 +52,9 @@
     <string name="administrador">Pulse el botón de lo que desea administrar</string>
     <string name="modificar">Modificar</string>
     <string name="borrar">Borrar</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="logout">Salir</string>
+    <string name="mante">ADMIN</string>
     <string-array name="pizzas">
         <item>Carbonara</item>
         <item>Vegetal</item>
