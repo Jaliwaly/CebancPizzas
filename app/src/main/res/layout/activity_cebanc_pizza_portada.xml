@@ -26,8 +26,6 @@
         android:layout_width="290dp"
         android:layout_height="176dp"
         tools:context=".FirstMapActivity"
-        android:layout_above="@+id/btnInicio"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp" />
 
     <LinearLayout

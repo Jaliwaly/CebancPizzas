@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class CebancPizza_Cliente extends AppCompatActivity {
     EditText nom, dir,tlf;
     Button sig, salir;
@@ -61,7 +59,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         Cursor c = sql.rawQuery("SELECT NOMBRE FROM CLIENTES",null);
         while(c.moveToNext() && existe == false){
             if (nombre.equalsIgnoreCase(c.getString(0))){
-                sql.execSQL("UPDATE CLIENTES SET TELEFONO = '"+tlf.getText().toString()+"' , DIRECCION = '" + dir.getText().toString()+"' WHERE NOMBRE = '"+c.getString(0)+"'",null);
+                sql.execSQL("UPDATE CLIENTES SET TELEFONO = '"+ Integer.parseInt(tlf.getText().toString()) +"' , DIRECCION = '" + dir.getText().toString()+"' WHERE NOMBRE = '"+c.getString(0)+"'",null);
                 existe=true;
             }
         }
@@ -76,7 +74,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
             sql.execSQL("INSERT INTO CLIENTES VALUES("+numCli+",'"+dir.getText().toString()+"','"+tlf.getText().toString()+"')");
         }
 
-        c =sql.rawQuery("SELECT NVL(MAX(*),0) FROM CLIENTES",null);
+        c =sql.rawQuery("SELECT NVL(MAX(*),0) FROM CABECERAS",null);
         c.moveToFirst();
         numPedido=c.getInt(0)+1;
 
