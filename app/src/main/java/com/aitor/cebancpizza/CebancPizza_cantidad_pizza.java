@@ -1,6 +1,8 @@
 package com.aitor.cebancpizza;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,17 +23,22 @@ import java.util.ArrayList;
  */
 
 public class CebancPizza_cantidad_pizza extends AppCompatActivity {
-    private Spinner tamano,masa;
-    private ArrayAdapter<CharSequence> adaptador;
+    private Spinner sptamano,spmasa;
+    private ArrayAdapter<String> masa;
+    private ArrayAdapter<String> tamano;
+    private ArrayList<Integer> prMasa, prTamano;
+
     private int cantidad=1;
     private TextView total;
     private EditText cant;
     private Button mas, menos, anadir, cancelar;
     private String nomMasa, nomTamano;
-    InformacionPizza pizza;
-    ArrayList<InformacionPizza> pizzas;
     Bundle extras;
-    int prMasa,prTipo;
+    int prTipo,cabecera, idPizza;
+    CebancPizza_BD db;
+    SQLiteDatabase sql;
+    Cursor c;
+    float precio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +51,8 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         mas=(Button) findViewById(R.id.btnMas);
         menos=(Button) findViewById(R.id.btnMenos);
         extras = getIntent().getExtras();
-        pizzas = (ArrayList<InformacionPizza>) extras.getSerializable("pizza");
-
+        cabecera = extras.getInt("pedido");
+        idPizza = extras.getInt("tipo");
         //Añade al texto de cantidad uno
         mas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,24 +77,23 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
             }
         });
 
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
+        sql = db.getWritableDatabase();
+
         //Creación del spinner para la masa de la pizza
-        adaptador = ArrayAdapter.createFromResource(this, R.array.tipoMasa, android.R.layout.simple_spinner_item);
-        masa = (Spinner) findViewById(R.id.spnMasa);
-        adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        masa.setAdapter(adaptador);
-        masa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        c = sql.rawQuery("SELECT MASA.DESCRIPCION, MASA.PRECIO,TAMANO.DESCRIPCION, TAMANO.PRECIO FROM MASA, TAMANO",null);
+        while(c.moveToNext()){
+            masa.add(c.getString(0)+" - "+c.getInt(1));
+            tamano.add(c.getString(2)+" - "+c.getInt(3));
+            prMasa.add(c.getInt(1));
+            prTamano.add(c.getInt(3));
+        }
+
+        spmasa = (Spinner) findViewById(R.id.spnMasa);
+        spmasa.setAdapter(masa);
+        spmasa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
-                switch (position){
-                    case 0:
-                        nomMasa="Masa Fina";
-                        prMasa=0;
-                        break;
-                    case 1:
-                        nomMasa="Masa Normal";
-                        prMasa=1;
-                        break;
-                }
-                total.setText("Total: "+"€");
+
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -95,11 +102,9 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         });
 
         //Creación del spinner para el tamaño de la pizza
-        adaptador = ArrayAdapter.createFromResource(this, R.array.tamano, android.R.layout.simple_spinner_item);
-        tamano = (Spinner) findViewById(R.id.spnTamano);
-        adaptador.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        tamano.setAdapter(adaptador);
-        tamano.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sptamano = (Spinner) findViewById(R.id.spnTamano);
+        sptamano.setAdapter(tamano);
+        sptamano.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v, int position, long id) {
                 switch (position) {
                     case 0:
@@ -128,13 +133,13 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pizza.setCantidad(cantidad);
-                pizza.setMasa(nomMasa);
-                pizza.setTamano(nomTamano);
-                pizza.setTipo(extras.getString("tipo"));
-                pizzas.add(pizza);
+        //        pizza.setCantidad(cantidad);
+          //      pizza.setMasa(nomMasa);
+            //    pizza.setTamano(nomTamano);
+              //  pizza.setTipo(extras.getString("tipo"));
+          //      pizzas.add(pizza);
                 Intent intent = new Intent();
-                intent.putExtra("pizza",pizzas);
+            //    intent.putExtra("pizza",pizzas);
                 setResult(RESULT_OK, intent);
                 finish();
             }

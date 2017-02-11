@@ -19,11 +19,9 @@ import java.util.ArrayList;
  */
 
 public class CebancPizza_Carta extends AppCompatActivity{
-    InformacionCliente client;
     Button nextBebidas, salir;
     Button carro;
-    ArrayList<EstructuraArray> datosPizza = new ArrayList();
-    ArrayList<InformacionPizza> pizza = new ArrayList();
+    int cabecera;
     LinearLayout sc;
     CebancPizza_BD db;
     SQLiteDatabase sql;
@@ -32,6 +30,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_pizzas);
+        Bundle extras;
         salir = (Button) findViewById(R.id.btnSalirPizzas);
         carro = (Button) findViewById(R.id.carrito);
         nextBebidas = (Button) findViewById(R.id.sigBebidas);
@@ -39,6 +38,8 @@ public class CebancPizza_Carta extends AppCompatActivity{
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getReadableDatabase();
         ArrayList<VistasArticulos> vaa = new ArrayList<VistasArticulos>();
+        extras = getIntent().getExtras();
+        cabecera=extras.getInt("cliente");
         final Cursor c = sql.rawQuery("SELECT * FROM ARTICULOS WHERE TIPO = 'PIZZA'",null);
         while(c.moveToNext()){
             vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
@@ -93,10 +94,10 @@ public class CebancPizza_Carta extends AppCompatActivity{
      * la pizza
      */
     public void anadir(int articulo){
-
         Intent i = new Intent(this,CebancPizza_cantidad_pizza.class);
         i.putExtra("tipo",articulo);
-        startActivityForResult(i,1234);
+        i.putExtra("pedido",cabecera);
+        startActivity(i);
     }
 
     /**
@@ -111,19 +112,13 @@ public class CebancPizza_Carta extends AppCompatActivity{
      * Metodo para pasar al layout del carrito en el cual pasamos los arraylist de las pizzas
      */
     public void carrito(){
-        int requestCode = 1233;
         Intent i = new Intent(this,CebancPizza_carrito.class);
-        i.putExtra("requestCode",requestCode);
-        startActivityForResult(i,requestCode);
+        i.putExtra("pedido",cabecera);
+        startActivity(i);
     }
     /**
      *Metodo para recojer del carrito los el arraylist de pizza
      */
-    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK) {
-            pizza=(ArrayList<InformacionPizza>) data.getExtras().getSerializable("pizza");
-        }
-    }
     class VistasArticulos {
         int idarticulo, imagen;
         String nombre, tipo;

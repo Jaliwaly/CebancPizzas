@@ -36,7 +36,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
                 if(ValidarDatos() == true){
                     siguienteP1();
                 }else{
-                    Toast ts = Toast.makeText(getApplicationContext(),"Introduce todos los campos",Toast.LENGTH_LONG);
+                    Toast ts = Toast.makeText(getApplicationContext(),"Introduce todos los campos",Toast.LENGTH_SHORT);
                     ts.show();
                 }
             }
@@ -59,6 +59,7 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         Cursor c = sql.rawQuery("SELECT NOMBRE FROM CLIENTES",null);
         while(c.moveToNext() && existe == false){
             if (nombre.equalsIgnoreCase(c.getString(0))){
+                nombre=c.getString(0);
                 sql.execSQL("UPDATE CLIENTES SET TELEFONO = "+ Integer.parseInt(tlf.getText().toString()) +" , DIRECCION = '" + dir.getText().toString()+"' WHERE NOMBRE = '"+nombre+"'");
                 existe=true;
                 mensaje("Tu información ha sido actualizada");
