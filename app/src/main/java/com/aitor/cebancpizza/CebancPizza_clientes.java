@@ -24,7 +24,7 @@ public class CebancPizza_clientes extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> clientes = new ArrayList<String>();
     private ArrayList<Integer> idCliente = new ArrayList<Integer>();
-    private int posicion;
+    private int posicion, antigua;
     CebancPizza_BD db;
     SQLiteDatabase sql;
 
@@ -43,7 +43,12 @@ public class CebancPizza_clientes extends AppCompatActivity {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                lista.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.azul));
                 posicion=position;
+                if(antigua!=posicion && lista.getCount()> 1){
+                    lista.getChildAt(antigua).setBackgroundColor(getResources().getColor(R.color.transparente));
+                    antigua=position;
+                }
             }
         });
 

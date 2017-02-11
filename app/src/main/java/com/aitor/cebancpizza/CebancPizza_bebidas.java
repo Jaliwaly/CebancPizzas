@@ -61,7 +61,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 tv.setTextColor((getResources().getColor(R.color.black)));
                 iv.setImageResource(vista.getImagen());
                 btn.setId(vista.getIdarticulo());
-                et.setText(0);
+                et.setText("0");
                 btn.setText("AÑADIR");
                 svb.addView(tv);
                 svb.addView(iv);
