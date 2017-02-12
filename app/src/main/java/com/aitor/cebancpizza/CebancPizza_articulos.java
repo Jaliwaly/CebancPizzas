@@ -28,6 +28,8 @@ public class CebancPizza_articulos extends AppCompatActivity {
     private int posicion, antigua;
     CebancPizza_BD db;
     SQLiteDatabase sql;
+    String nombre, tipo;
+    double precio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class CebancPizza_articulos extends AppCompatActivity {
 
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getWritableDatabase();
-        Cursor c = sql.rawQuery("SELECT IDARTICLO, NOMBRE, TIPO FROM ARTICULOS",null);
+        Cursor c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
         while(c.moveToNext()){
             idArticulo.add(c.getInt(0));
             articulos.add(c.getInt(0)+" - "+c.getString(1)+" - "+c.getString(2));
@@ -73,13 +75,14 @@ public class CebancPizza_articulos extends AppCompatActivity {
         anadir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                siguienteAnadir();
+                menuNewArt();
+                siguienteAnadir(posicion);
             }
         });
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminar(lista.getSelectedItemPosition());
+                eliminar(posicion);
             }
         });
         salir.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +97,15 @@ public class CebancPizza_articulos extends AppCompatActivity {
         i.putExtra("num",pos);
         startActivity(i);
     }
-    private void siguienteAnadir(){
-        Intent i = new Intent(this,CebancPizza_bebidas.class);
-        startActivity(i);
+    private void siguienteAnadir(int pos){
+        try{
+            Cursor c = sql.rawQuery("SELECT MAX(IDARTICULO) FROM ARTICULOS",null);
+            int articuloNuevo = c.getInt(0)+1;
+            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"','"+precio+"','"+R.drawable.pizza+"'");
+            adapter.notifyDataSetChanged();
+        }catch (IndexOutOfBoundsException e){
+            Toast.makeText(this,"No hay elementos seleccionados",Toast.LENGTH_SHORT).show();
+        }
     }
     private void eliminar(int pos){
         try{
@@ -106,6 +115,30 @@ public class CebancPizza_articulos extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }catch (IndexOutOfBoundsException e){
             Toast.makeText(this,"No hay elementos seleccionados",Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void menuNewArt(){
+        Intent i = new Intent(this,CebancPIzza_newarticulo.class);
+        startActivityForResult(i,1234);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 1234 && resultCode == RESULT_OK) {
+            nombre = data.getExtras().getString("Nombre");
+            tipo = data.getExtras().getString("Tipo");
+            precio = data.getExtras().getDouble("Precio");
+            Cursor c = sql.rawQuery("SELECT MAX(IDARTICULO) FROM ARTICULOS",null);
+            int articuloNuevo = c.getInt(0)+1;
+            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"','"+precio+"','"+R.drawable.pizza+"'");
+            idArticulo.clear();
+            articulos.clear();
+            c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
+            while(c.moveToNext()){
+                idArticulo.add(c.getInt(0));
+                articulos.add(c.getInt(0)+" - "+c.getString(1)+" - "+c.getString(2));
+                adapter.notifyDataSetChanged();
+            }
         }
     }
 }
