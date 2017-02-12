@@ -51,7 +51,6 @@ public class CebancPizza_Cliente extends AppCompatActivity {
         });
     }
 
-    //Función que guarda la información del cliente en un array trás meterlo en un objeto de la clase EstructuraArray y lo pasa a la siguiente actividad
     public void siguienteP1(){
         nombre = nom.getText().toString();
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
