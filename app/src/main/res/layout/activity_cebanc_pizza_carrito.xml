@@ -28,7 +28,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/spnPizzas"
         android:layout_weight="0.01"
-        android:background="@color/cast_expanded_controller_ad_label_background_color"/>
+        android:background="@color/cast_expanded_controller_ad_label_background_color"
+        android:popupBackground="@color/cast_intro_overlay_button_background_color" />
 
     <Button
         android:layout_width="match_parent"
@@ -73,7 +74,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/spnBebidas"
         android:layout_weight="0.01"
-        android:background="@color/cast_expanded_controller_ad_label_background_color"/>
+        android:background="@color/cast_expanded_controller_ad_label_background_color"
+        android:popupBackground="@color/cast_intro_overlay_button_background_color" />
 
     <Button
         android:layout_width="match_parent"
