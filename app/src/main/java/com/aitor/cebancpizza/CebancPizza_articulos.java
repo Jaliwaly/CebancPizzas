@@ -69,7 +69,7 @@ public class CebancPizza_articulos extends AppCompatActivity {
         modificar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                siguienteModificar(lista.getSelectedItemPosition());
+                siguienteModificar(posicion);
             }
         });
         anadir.setOnClickListener(new View.OnClickListener() {
@@ -92,9 +92,8 @@ public class CebancPizza_articulos extends AppCompatActivity {
         });
     }
     private void siguienteModificar(int pos){
-        Intent i = new Intent(this,CebancPizza_bebidas.class);
-        i.putExtra("num",pos);
-        startActivity(i);
+        Intent i = new Intent(this,CebancPIzza_newarticulo.class);
+        startActivityForResult(i,12345);
     }
     private void eliminar(int pos){
         try{
@@ -120,7 +119,22 @@ public class CebancPizza_articulos extends AppCompatActivity {
             Cursor c = sql.rawQuery("SELECT MAX(IDARTICULO) FROM ARTICULOS",null);
             c.moveToFirst();
             int articuloNuevo = c.getInt(0)+1;
-            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"',"+precio+","+R.drawable.pizza);
+            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"',"+precio+","+R.drawable.ppd);
+            idArticulo.clear();
+            articulos.clear();
+            c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
+            while(c.moveToNext()){
+                idArticulo.add(c.getInt(0));
+                articulos.add(c.getInt(0)+" - "+c.getString(1)+" - "+c.getString(2));
+                adapter.notifyDataSetChanged();
+            }
+        }else{
+            nombre = data.getExtras().getString("Nombre");
+            tipo = data.getExtras().getString("Tipo");
+            precio = data.getExtras().getDouble("Precio");
+            Cursor c = sql.rawQuery("SELECT IDARTICULO FROM ARTICULOS WHERE IDARTICULO = "+idArticulo.get(posicion),null);
+            c.moveToFirst();
+            sql.execSQL("UPDATE ARTICULOS SET NOMBRE = '"+nombre+"', TIPO = '"+tipo+"', PRECIO = "+precio+" WHERE IDARTICULO = "+idArticulo.get(posicion));
             idArticulo.clear();
             articulos.clear();
             c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
