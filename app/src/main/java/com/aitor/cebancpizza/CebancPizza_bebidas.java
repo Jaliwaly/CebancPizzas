@@ -3,8 +3,6 @@ package com.aitor.cebancpizza;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -14,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +23,7 @@ import java.util.ArrayList;
 
 public class CebancPizza_bebidas extends AppCompatActivity{
     private Button finalizar, cesta, salir;
-    private ArrayList<InformacionBebidas> bebidas = new ArrayList();
     private Bundle extras;
-    private ArrayList<InformacionPizza> pizza = new ArrayList();
     private LinearLayout svb;
     private int cabecera;
     ArrayList<VistasArticulosB> bebidasVista = new ArrayList<VistasArticulosB>();
@@ -133,21 +127,9 @@ public class CebancPizza_bebidas extends AppCompatActivity{
      * de las bebidas junto con el requestCode.
      */
     public void carrito(){
-        int requestCode = 12344;
         Intent i = new Intent(this,CebancPizza_carrito.class);
-        i.putExtra("bebidas", bebidas);
-        i.putExtra("pizza",pizza);
-        i.putExtra("requestCode",requestCode);
-        startActivityForResult(i,requestCode);
-    }
-
-    /**
-     *Metodo para recojer del carrito los dos arraylist
-     */
-    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-        if (requestCode==12344 && resultCode==RESULT_OK) {
-
-        }
+        i.putExtra("pedido",cabecera);
+        startActivity(i);
     }
 
     public void pedirBebida(int cantidad, int id){
@@ -171,35 +153,14 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             this.prVent = prVent;
             this.tipo = tipo;
         }
-        public void setIdArticulo(int idarticulo){
-            this.idarticulo = idarticulo;
-        }
         public int getIdarticulo(){
             return idarticulo;
-        }
-        public void setNombreArticulo(String nombre){
-            this.nombre = nombre;
         }
         public String getNombre(){
             return nombre;
         }
-        public void setImagen(int imagen){
-            this.imagen = imagen;
-        }
         public int getImagen(){
             return imagen;
-        }
-        public void setPrVent(float prVent){
-            this.prVent = prVent;
-        }
-        public float getPrVent(){
-            return prVent;
-        }
-        public void setTipo(String tipo){
-            this.tipo = tipo;
-        }
-        public String getTipo(){
-            return tipo;
         }
     }
 }

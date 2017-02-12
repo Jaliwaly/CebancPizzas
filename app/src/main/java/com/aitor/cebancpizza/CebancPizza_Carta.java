@@ -1,23 +1,16 @@
 package com.aitor.cebancpizza;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 /**
@@ -140,35 +133,15 @@ public class CebancPizza_Carta extends AppCompatActivity{
             this.prVent = prVent;
             this.tipo = tipo;
         }
-        public void setIdArticulo(int idarticulo){
-            this.idarticulo = idarticulo;
-        }
+
         public int getIdarticulo(){
             return idarticulo;
-        }
-        public void setNombreArticulo(String nombre){
-            this.nombre = nombre;
         }
         public String getNombre(){
             return nombre;
         }
-        public void setImagen(int imagen){
-            this.imagen = imagen;
-        }
         public int getImagen(){
             return imagen;
-        }
-        public void setPrVent(float prVent){
-            this.prVent = prVent;
-        }
-        public float getPrVent(){
-            return prVent;
-        }
-        public void setTipo(String tipo){
-            this.tipo = tipo;
-        }
-        public String getTipo(){
-            return tipo;
         }
     }
 }
