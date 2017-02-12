@@ -49,8 +49,8 @@ public class CebancPizza_bebidas extends AppCompatActivity{
             bebidasVista.add(new VistasArticulosB(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
         }
         for(final VistasArticulosB vista:bebidasVista){
-                TextView tv = new TextView(getApplicationContext());
-                ImageView iv = new ImageView(getApplicationContext());
+                final TextView tv = new TextView(getApplicationContext());
+                final ImageView iv = new ImageView(getApplicationContext());
                 final EditText et = new EditText(getApplicationContext());
                 final Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());

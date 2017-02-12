@@ -79,7 +79,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
         c = sql.rawQuery("SELECT NOMBRE, CANTIDAD, IDLINEA FROM LINEAS, ARTICULOS WHERE LINEAS.IDARTICULO=ARTICULOS.IDARTICULO AND IDCABECERA = "+cabecera+" AND TIPO='BEBIDA'",null);
 
         while (c.moveToNext()){
-            carroPizzas.add(c.getString(0) + " X " + c.getInt(1));
+            carroBebidas.add(c.getString(0) + " X " + c.getInt(1));
             lineasb.add(c.getInt(2));
         }
 
@@ -264,7 +264,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
     //Función para añadir una bebida más del tipo seleccionado
     public void anadirBebida(){
         sql.execSQL("UPDATE LINEAS SET CANTIDAD = CANTIDAD + 1 WHERE IDLINEA = "+ lineasb.get(pos2));
-        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD FROM LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND WHERE IDLINEA = " + lineasb.get(pos2),null);
+        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD FROM LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND IDLINEA = " + lineasb.get(pos2),null);
 
         c.moveToFirst();
 
@@ -277,7 +277,7 @@ public class CebancPizza_carrito extends AppCompatActivity {
 
     //Función para restar una bebida del tipo seleccionado
     public void restarBebida(){
-        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND FROM LINEAS WHERE IDLINEA = " + lineasb.get(pos2),null);
+        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD FROM ARTICULOS, LINEAS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND IDLINEA = " + lineasb.get(pos2),null);
         c.moveToNext();
 
         if(c.getInt(1)>1) {
