@@ -19,6 +19,8 @@ public class CebancPIzza_newarticulo extends AppCompatActivity{
     Button btn1;
     private ArrayAdapter<String> adaptador;
     String[] tipoart = {"PIZZA","BEBIDA"};
+    String nombre, tipo;
+    double precio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +38,18 @@ public class CebancPIzza_newarticulo extends AppCompatActivity{
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                añadirArt();
+                nombre = e1.getText().toString();
+                tipo = s1.getSelectedItem().toString();
+                precio = Double.parseDouble(e2.getText().toString());
+                añadirArt(nombre, tipo, precio);
             }
         });
     }
-    public void añadirArt(){
+    public void añadirArt(String nombre, String tipo, double precio){
         Intent i = new Intent();
-        i.putExtra("Nombre",e1.getText().toString());
-        i.putExtra("Tipo",s1.getSelectedItem().toString());
-        i.putExtra("Precio",Double.parseDouble(e2.getText().toString()));
+        i.putExtra("Nombre",nombre);
+        i.putExtra("Tipo",tipo);
+        i.putExtra("Precio",precio);
         setResult(RESULT_OK, i);
         finish();
     }
