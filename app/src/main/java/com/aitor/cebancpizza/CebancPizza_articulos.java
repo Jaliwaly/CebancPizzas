@@ -1,12 +1,16 @@
 package com.aitor.cebancpizza;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,22 +23,46 @@ public class CebancPizza_articulos extends AppCompatActivity {
     private Button anadir, modificar, borrar, salir;
     private ArrayAdapter<String> adapter;
     private ListView lista;
-    private ArrayList<String> articulos;
+    private ArrayList<String> articulos = new ArrayList<String>();
+    private ArrayList<Integer> idArticulo = new ArrayList<Integer>();
+    private int posicion, antigua;
+    CebancPizza_BD db;
+    SQLiteDatabase sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cebanc_pizza_articulos);
 
-        modificar=(Button) findViewById(R.id.btnModificar);
-        anadir=(Button) findViewById(R.id.btnAnadir);
-        borrar=(Button) findViewById(R.id.btnBorrar);
-        salir=(Button) findViewById(R.id.btnSalir);
-        lista=(ListView) findViewById(R.id.list);
+        modificar=(Button) findViewById(R.id.btnModificarART);
+        anadir=(Button) findViewById(R.id.btnAnadirART);
+        borrar=(Button) findViewById(R.id.btnBorrarART);
+        salir=(Button) findViewById(R.id.btnSalirART);
+        lista=(ListView) findViewById(R.id.listART);
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, articulos);
-
         lista.setAdapter(adapter);
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                lista.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.azul));
+                posicion=position;
+                if(antigua!=posicion && lista.getCount()> 1){
+                    lista.getChildAt(antigua).setBackgroundColor(getResources().getColor(R.color.transparente));
+                    antigua=position;
+                }
+            }
+        });
+
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
+        sql = db.getWritableDatabase();
+        Cursor c = sql.rawQuery("SELECT IDARTICLO, NOMBRE, TIPO FROM ARTICULOS",null);
+        while(c.moveToNext()){
+            idArticulo.add(c.getInt(0));
+            articulos.add(c.getInt(0)+" - "+c.getString(1)+" - "+c.getString(2));
+            adapter.notifyDataSetChanged();
+        }
 
         modificar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +99,13 @@ public class CebancPizza_articulos extends AppCompatActivity {
         startActivity(i);
     }
     private void eliminar(int pos){
-        articulos.remove(pos);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, articulos);
-        adapter.notifyDataSetChanged();
+        try{
+            sql.execSQL("DELETE FROM ARTICULOS WHERE IDARTICULO = " + idArticulo.get(pos));
+            articulos.remove(pos);
+            idArticulo.remove(pos);
+            adapter.notifyDataSetChanged();
+        }catch (IndexOutOfBoundsException e){
+            Toast.makeText(this,"No hay elementos seleccionados",Toast.LENGTH_SHORT).show();
+        }
     }
 }

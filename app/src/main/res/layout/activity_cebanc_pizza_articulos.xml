@@ -15,7 +15,7 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/list" />
+                android:id="@+id/listART" />
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -30,13 +30,13 @@
                         android:text="@string/modificar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnModificar" />
+                        android:id="@+id/btnModificarART" />
 
                     <Button
                         android:text="@string/anadir"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnAnadir" />
+                        android:id="@+id/btnAnadirART" />
                 </TableRow>
 
                 <TableRow
@@ -47,13 +47,13 @@
                         android:text="@string/borrar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnBorrar" />
+                        android:id="@+id/btnBorrarART" />
 
                     <Button
                         android:text="@string/salir"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnSalir" />
+                        android:id="@+id/btnSalirART" />
                 </TableRow>
 
             </TableLayout>
