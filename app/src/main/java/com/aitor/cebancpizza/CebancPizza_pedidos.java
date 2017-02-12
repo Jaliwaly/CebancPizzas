@@ -76,7 +76,7 @@ public class CebancPizza_pedidos extends AppCompatActivity {
     }
     private void eliminar(int pos){
         try{
-            sql.execSQL("DELETE FROM PIZZA_PEDIDA, LIENAS WHERE LINEAS.IDLINEA = PIZZA_PEDIDA.IDLINEA IDCABECERA = " + idPedido.get(pos));
+            sql.execSQL("DELETE FROM PIZZA_PEDIDA WHERE IDLINEA = (SELECT LINEAS.IDLINEA FROM PIZZA_PEDIDA, LINEAS WHERE LINEAS.IDLINEA = PIZZA_PEDIDA.IDLINEA AND IDCABECERA = " + idPedido.get(pos)+")");
             sql.execSQL("DELETE FROM CABECERAS WHERE IDCABECERA = " + idPedido.get(pos));
             sql.execSQL("DELETE FROM LINEAS WHERE IDCABECERA = " + idPedido.get(pos));
             pedidos.remove(pos);
