@@ -76,7 +76,6 @@ public class CebancPizza_articulos extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 menuNewArt();
-                siguienteAnadir(posicion);
             }
         });
         borrar.setOnClickListener(new View.OnClickListener() {
@@ -96,16 +95,6 @@ public class CebancPizza_articulos extends AppCompatActivity {
         Intent i = new Intent(this,CebancPizza_bebidas.class);
         i.putExtra("num",pos);
         startActivity(i);
-    }
-    private void siguienteAnadir(int pos){
-        try{
-            Cursor c = sql.rawQuery("SELECT MAX(IDARTICULO) FROM ARTICULOS",null);
-            int articuloNuevo = c.getInt(0)+1;
-            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"','"+precio+"','"+R.drawable.pizza+"'");
-            adapter.notifyDataSetChanged();
-        }catch (IndexOutOfBoundsException e){
-            Toast.makeText(this,"No hay elementos seleccionados",Toast.LENGTH_SHORT).show();
-        }
     }
     private void eliminar(int pos){
         try{
