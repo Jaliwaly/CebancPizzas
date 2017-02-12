@@ -54,7 +54,7 @@ public class CebancPizza_pedidos extends AppCompatActivity {
 
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getWritableDatabase();
-        Cursor c = sql.rawQuery("SELECT IDPEDIDO, IDCLIENTE FROM CABECERA",null);
+        Cursor c = sql.rawQuery("SELECT IDCABECERA, IDCLIENTE FROM CABECERAS",null);
         while(c.moveToNext()){
             idPedido.add(c.getInt(0));
             pedidos.add(c.getInt(0)+" - "+c.getInt(1));
@@ -76,9 +76,9 @@ public class CebancPizza_pedidos extends AppCompatActivity {
     }
     private void eliminar(int pos){
         try{
+            sql.execSQL("DELETE FROM PIZZA_PEDIDA, LIENAS WHERE LINEAS.IDLINEA = PIZZA_PEDIDA.IDLINEA IDCABECERA = " + idPedido.get(pos));
             sql.execSQL("DELETE FROM CABECERAS WHERE IDCABECERA = " + idPedido.get(pos));
             sql.execSQL("DELETE FROM LINEAS WHERE IDCABECERA = " + idPedido.get(pos));
-            sql.execSQL("DELETE FROM PIZZA_PEDIDA WHERE IDCABECERA = " + idPedido.get(pos));
             pedidos.remove(pos);
             idPedido.remove(pos);
             adapter.notifyDataSetChanged();
