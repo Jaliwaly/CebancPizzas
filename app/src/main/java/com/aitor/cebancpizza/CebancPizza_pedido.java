@@ -79,13 +79,13 @@ public class CebancPizza_pedido extends AppCompatActivity {
         c=sql.rawQuery("SELECT NOMBRE, TELEFONO, DIRECCION FROM CLIENTES, CABECERAS WHERE CLIENTES.IDCLIENTE=CABECERAS.IDCLIENTE AND IDCABECERA = "+cabecera,null);
         c.moveToFirst();
 
-        infoCliente.setText("Información del cliente:\n\nNombre: "+c.getString(0)+"\nDirección: "+c.getInt(2)+"\nTeléfono: "+c.getString(1)+"\n\n");
+        infoCliente.setText("Información del cliente:\n\nNombre: "+c.getString(0)+"\nDirección: "+c.getString(2)+"\nTeléfono: "+c.getString(1)+"\n\n");
         //En estos tres Text View se añaden los títulos de cada apartado
         factura="Artículos pedidos\n\n";
         cantidad="Cant.\n\n";
         precio="Precio\n\n";
 
-        c=sql.rawQuery("SELECT NOMBRE, MASA.DESCRIPCION, TAMANO.DESCRIPCION, CANTIDAD, PR_VENT, MASA.PRECIO, TAMANO.PRECIO FROM PIZZA_PEDIDA, MASA, TAMANO, LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND LINEAS.IDLINEA=PIZZA_PEDIDA.LINEA AND PIZZA_PEDIDA.MASA=MASA.IDMASA AND PIZZA_PEDIDA.TAMANO = TAMANO.IDTAMANO AND TIPO = 'PIZZA' AND IDCABECERA = "+cabecera,null);
+        c=sql.rawQuery("SELECT NOMBRE, MASA.DESCRIPCION, TAMANO.DESCRIPCION, CANTIDAD, PRVENT, MASA.PRECIO, TAMANO.PRECIO FROM PIZZA_PEDIDA, MASA, TAMANO, LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND LINEAS.IDLINEA=PIZZA_PEDIDA.IDLINEA AND PIZZA_PEDIDA.MASA=MASA.IDMASA AND PIZZA_PEDIDA.TAMANO = TAMANO.IDTAMANO AND TIPO = 'PIZZA' AND IDCABECERA = "+cabecera,null);
 
         while (c.moveToNext()){
             factura+=c.getString(0)+" "+c.getString(1)+" "+c.getString(2)+"\n";
@@ -94,7 +94,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
             total+=c.getInt(3)*(c.getFloat(4)+c.getInt(5)+c.getInt(6));
         }
 
-        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD, PR_VENT FROM LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND TIPO = 'BEBIDA' AND IDCABECERA = "+cabecera,null);
+        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD, PRVENT FROM LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND TIPO = 'BEBIDA' AND IDCABECERA = "+cabecera,null);
 
         while (c.moveToNext()){
             factura +=c.getString(0)+"\n";
