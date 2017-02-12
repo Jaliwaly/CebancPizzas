@@ -1,13 +1,14 @@
 package com.aitor.cebancpizza;
 
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,15 +18,15 @@ import java.util.ArrayList;
 
 public class CebancPizza_pedido extends AppCompatActivity {
     private Bundle extras;
-    private ArrayList<EstructuraArray> datos;
+    private int cabecera;
     private AlertDialog.Builder confirmacion;
-    private ArrayList<InformacionBebidas> bebidas;
-    private InformacionCliente cliente;
-    private ArrayList<InformacionPizza> pizzas;
     private TextView infoCliente,infoFactura,infoPrecio,infoTotal,infoRegalo,infoCantidad;
     private Button aceptar,salir;
     private String factura,precio,cantidad;
     private double total=0;
+    private CebancPizza_BD db;
+    private SQLiteDatabase sql;
+    private Cursor c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +34,7 @@ public class CebancPizza_pedido extends AppCompatActivity {
         setContentView(R.layout.activity_cebanc_pizza_pedido);
         confirmacion = new AlertDialog.Builder(this);
         extras = getIntent().getExtras();
-        datos = (ArrayList<EstructuraArray>) extras.getSerializable("datos");
-        cliente = (InformacionCliente) datos.get(0).getObj();
-        pizzas = (ArrayList<InformacionPizza>) datos.get(1).getObj();
-        bebidas = (ArrayList<InformacionBebidas>) datos.get(2).getObj();
+        cabecera=extras.getInt("pedido");
         infoCliente = (TextView) findViewById(R.id.txtCliente);
         infoFactura = (TextView) findViewById(R.id.txtArticulo);
         infoPrecio = (TextView) findViewById(R.id.txtPrecio);
@@ -74,26 +72,35 @@ public class CebancPizza_pedido extends AppCompatActivity {
         });
 
         //Text View en el que se mostrará la información del cliente
-        infoCliente.setText("Información del cliente:\n\nNombre: "+cliente.getNombre()+"\nDirección: "+cliente.getDireccion()+"\nTeléfono: "+cliente.getTelefono()+"\n\n");
+
+        db = new CebancPizza_BD(this,"CebancPizza",null,1);
+        sql = db.getReadableDatabase();
+
+        c=sql.rawQuery("SELECT NOMBRE, TELEFONO, DIRECCION FROM CLIENTES, CABECERAS WHERE CLIENTES.IDCLIENTE=CABECERAS.IDCLIENTE AND IDCABECERA = "+cabecera,null);
+        c.moveToFirst();
+
+        infoCliente.setText("Información del cliente:\n\nNombre: "+c.getString(0)+"\nDirección: "+c.getString(2)+"\nTeléfono: "+c.getString(1)+"\n\n");
         //En estos tres Text View se añaden los títulos de cada apartado
         factura="Artículos pedidos\n\n";
         cantidad="Cant.\n\n";
         precio="Precio\n\n";
 
-        //Bucle en el que se añade a tres string todas las pizzas pedidas y su información, también calcula el precio total
-        for(int cont=0;cont<pizzas.size();cont++){
-            factura+=pizzas.get(cont).getTipo()+" "+pizzas.get(cont).getTamano()+" "+pizzas.get(cont).getMasa()+"\n";
-            cantidad+=pizzas.get(cont).getCantidad()+"\n";
-            precio+=String.format("%.02f", pizzas.get(cont).getTotal())+"€\n";
-            total+=pizzas.get(cont).getTotal();
+        c=sql.rawQuery("SELECT NOMBRE, MASA.DESCRIPCION, TAMANO.DESCRIPCION, CANTIDAD, PRVENT, MASA.PRECIO, TAMANO.PRECIO FROM PIZZA_PEDIDA, MASA, TAMANO, LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND LINEAS.IDLINEA=PIZZA_PEDIDA.IDLINEA AND PIZZA_PEDIDA.MASA=MASA.IDMASA AND PIZZA_PEDIDA.TAMANO = TAMANO.IDTAMANO AND TIPO = 'PIZZA' AND IDCABECERA = "+cabecera,null);
+
+        while (c.moveToNext()){
+            factura+=c.getString(0)+" "+c.getString(1)+" "+c.getString(2)+"\n";
+            cantidad+=c.getInt(3)+"\n";
+            precio+=String.format("%.02f", c.getInt(3)*(c.getFloat(4)+c.getInt(5)+c.getInt(6)))+"€\n";
+            total+=c.getInt(3)*(c.getFloat(4)+c.getInt(5)+c.getInt(6));
         }
 
-        //Bucle en el que se añade a tres string todas las bebidas pedidas y su información, también calcula el precio total
-        for(int cont=0;cont<bebidas.size();cont++){
-            factura +=bebidas.get(cont).getTipo()+"\n";
-            cantidad+=bebidas.get(cont).getCantidad()+"\n";
-            precio+=String.format("%.02f", bebidas.get(cont).getTotal())+"€\n";
-            total+=bebidas.get(cont).getTotal();
+        c=sql.rawQuery("SELECT NOMBRE, CANTIDAD, PRVENT FROM LINEAS, ARTICULOS WHERE ARTICULOS.IDARTICULO=LINEAS.IDARTICULO AND TIPO = 'BEBIDA' AND IDCABECERA = "+cabecera,null);
+
+        while (c.moveToNext()){
+            factura +=c.getString(0)+"\n";
+            cantidad+=c.getInt(1)+"\n";
+            precio+=String.format("%.02f", c.getFloat(2)*c.getInt(1))+"€\n";
+            total+=c.getFloat(2)*c.getInt(1);
         }
 
         //Se añade a los Text View los respectivos strings para que se muestre la información

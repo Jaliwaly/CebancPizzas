@@ -123,6 +123,7 @@ public class CebancPizza_bebidas extends AppCompatActivity{
      */
     public void finalizarCompra(){
         Intent i = new Intent(this,CebancPizza_pedido.class);
+        i.putExtra("pedido",cabecera);
         startActivity(i);
         finish();
     }

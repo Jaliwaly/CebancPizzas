@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 /**
@@ -43,7 +45,7 @@ public class CebancPizza_Carta extends AppCompatActivity{
         sql = db.getReadableDatabase();
         ArrayList<VistasArticulos> vaa = new ArrayList<VistasArticulos>();
         extras = getIntent().getExtras();
-        cabecera=extras.getInt("cliente");
+        cabecera=extras.getInt("pedido");
         final Cursor c = sql.rawQuery("SELECT * FROM ARTICULOS WHERE TIPO = 'PIZZA'",null);
         while(c.moveToNext()){
             vaa.add(new VistasArticulos(c.getInt(0),c.getString(1),c.getInt(4),c.getFloat(3),c.getString(2)));
