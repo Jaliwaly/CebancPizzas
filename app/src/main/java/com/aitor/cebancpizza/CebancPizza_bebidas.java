@@ -55,7 +55,11 @@ public class CebancPizza_bebidas extends AppCompatActivity{
                 final Button btn = new Button(getApplicationContext());
                 tv.setText(vista.getNombre());
                 tv.setTextColor((getResources().getColor(R.color.black)));
-                iv.setImageResource(vista.getImagen());
+                if(vista.getImagen() == 1){
+                    iv.setImageResource(R.drawable.ppd);
+                }else {
+                    iv.setImageResource(vista.getImagen());
+                }
                 et.setTextColor((getResources().getColor(R.color.black)));
                 et.setLayoutParams(new LinearLayout.LayoutParams(100,ViewGroup.LayoutParams.WRAP_CONTENT));
                 et.setInputType(InputType.TYPE_CLASS_NUMBER);

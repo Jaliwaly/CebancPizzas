@@ -119,7 +119,7 @@ public class CebancPizza_articulos extends AppCompatActivity {
             Cursor c = sql.rawQuery("SELECT MAX(IDARTICULO) FROM ARTICULOS",null);
             c.moveToFirst();
             int articuloNuevo = c.getInt(0)+1;
-            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"',"+precio+","+R.drawable.ppd);
+            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"',"+precio+",1");
             idArticulo.clear();
             articulos.clear();
             c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
@@ -134,7 +134,7 @@ public class CebancPizza_articulos extends AppCompatActivity {
             precio = data.getExtras().getDouble("Precio");
             Cursor c = sql.rawQuery("SELECT IDARTICULO FROM ARTICULOS WHERE IDARTICULO = "+idArticulo.get(posicion),null);
             c.moveToFirst();
-            sql.execSQL("UPDATE ARTICULOS SET NOMBRE = '"+nombre+"', TIPO = '"+tipo+"', PRECIO = "+precio+" WHERE IDARTICULO = "+idArticulo.get(posicion));
+            sql.execSQL("UPDATE ARTICULOS SET NOMBRE = '"+nombre+"', TIPO = '"+tipo+"', PRVENT = "+precio+" WHERE IDARTICULO = "+idArticulo.get(posicion));
             idArticulo.clear();
             articulos.clear();
             c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);

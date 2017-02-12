@@ -58,7 +58,7 @@ public class CebancPizza_admin extends AppCompatActivity {
         startActivity(i);
     }
     private void siguientePedidos(){
-        Intent i = new Intent(this,CebancPizza_articulos.class);
+        Intent i = new Intent(this,CebancPizza_pedidos.class);
         startActivity(i);
     }
 }
