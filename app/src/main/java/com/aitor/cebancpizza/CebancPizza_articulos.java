@@ -28,8 +28,8 @@ public class CebancPizza_articulos extends AppCompatActivity {
     private int posicion, antigua;
     CebancPizza_BD db;
     SQLiteDatabase sql;
-    String nombre, tipo;
-    double precio;
+    String nombre = "", tipo = "";
+    double precio = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
