@@ -118,8 +118,9 @@ public class CebancPizza_articulos extends AppCompatActivity {
             tipo = data.getExtras().getString("Tipo");
             precio = data.getExtras().getDouble("Precio");
             Cursor c = sql.rawQuery("SELECT MAX(IDARTICULO) FROM ARTICULOS",null);
+            c.moveToFirst();
             int articuloNuevo = c.getInt(0)+1;
-            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"','"+precio+"','"+R.drawable.pizza+"'");
+            sql.execSQL("INSERT INTO ARTICULOS VALUES("+articuloNuevo+",'"+nombre+"','"+tipo+"',"+precio+","+R.drawable.pizza);
             idArticulo.clear();
             articulos.clear();
             c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
