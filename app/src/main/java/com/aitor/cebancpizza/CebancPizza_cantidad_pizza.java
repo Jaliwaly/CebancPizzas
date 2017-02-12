@@ -133,7 +133,7 @@ public class CebancPizza_cantidad_pizza extends AppCompatActivity {
                 c.moveToFirst();
                 linea=c.getInt(0) + 1;
                 sql.execSQL("INSERT INTO LINEAS VALUES("+linea+","+cabecera+","+idPizza+","+cantidad+")");
-                sql.execSQL("INSERT INTO PIZZA_PEDIDA VALUES("+linea+","+posMasa+","+posTamano+")");
+                sql.execSQL("INSERT INTO PIZZA_PEDIDA VALUES("+linea+","+(posMasa + 1)+","+(posTamano + 1)+")");
                 mensaje("Pizza añadida");
                 finish();
             }

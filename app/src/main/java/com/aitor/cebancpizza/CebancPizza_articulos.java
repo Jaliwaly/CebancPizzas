@@ -57,7 +57,7 @@ public class CebancPizza_articulos extends AppCompatActivity {
 
         db = new CebancPizza_BD(this,"CebancPizza",null,1);
         sql = db.getWritableDatabase();
-        Cursor c = sql.rawQuery("SELECT IDARTICLO, NOMBRE, TIPO FROM ARTICULOS",null);
+        Cursor c = sql.rawQuery("SELECT IDARTICULO, NOMBRE, TIPO FROM ARTICULOS",null);
         while(c.moveToNext()){
             idArticulo.add(c.getInt(0));
             articulos.add(c.getInt(0)+" - "+c.getString(1)+" - "+c.getString(2));
